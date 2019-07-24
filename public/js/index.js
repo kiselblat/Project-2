@@ -1,47 +1,47 @@
 // Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
+var $inventoryText = $("#inventory-text");
+var $inventoryDescription = $("#inventory-description");
 var $submitBtn = $("#submit");
-var $exampleList = $("#example-list");
+var $inventoryList = $("#inventory-list");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveExample: function(example) {
+  saveInventory: function(inventory) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "api/examples",
-      data: JSON.stringify(example)
+      url: "api/inventory",
+      data: JSON.stringify(inventory)
     });
   },
-  getExamples: function() {
+  getInventory: function() {
     return $.ajax({
-      url: "api/examples",
+      url: "api/inventory",
       type: "GET"
     });
   },
-  deleteExample: function(id) {
+  deleteInventory: function(id) {
     return $.ajax({
-      url: "api/examples/" + id,
+      url: "api/inventory/" + id,
       type: "DELETE"
     });
   }
 };
 
-// refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function() {
-  API.getExamples().then(function(data) {
-    var $examples = data.map(function(example) {
+// refreshInventory gets new inventory from the db and repopulates the list
+var refreshInventory = function() {
+  API.getInventory().then(function(data) {
+    var $inventory = data.map(function(inventory) {
       var $a = $("<a>")
-        .text(example.text)
-        .attr("href", "/example/" + example.id);
+        .text(inventory.text)
+        .attr("href", "/inventory/" + inventory.id);
 
       var $li = $("<li>")
         .attr({
           class: "list-group-item",
-          "data-id": example.id
+          "data-id": inventory.id
         })
         .append($a);
 
@@ -54,46 +54,46 @@ var refreshExamples = function() {
       return $li;
     });
 
-    $exampleList.empty();
-    $exampleList.append($examples);
+    $inventoryList.empty();
+    $inventoryList.append($inventory);
   });
 };
 
-// handleFormSubmit is called whenever we submit a new example
-// Save the new example to the db and refresh the list
+// handleFormSubmit is called whenever we submit a new item
+// Save the new item to the db and refresh the list
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
-  var example = {
-    text: $exampleText.val().trim(),
-    description: $exampleDescription.val().trim()
+  var inventory = {
+    text: $inventoryText.val().trim(),
+    description: $inventoryDescription.val().trim()
   };
 
-  if (!(example.text && example.description)) {
+  if (!(inventory.text && inventory.description)) {
     alert("You must enter an example text and description!");
     return;
   }
 
-  API.saveExample(example).then(function() {
-    refreshExamples();
+  API.saveInventory(inventory).then(function() {
+    refreshInventory();
   });
 
-  $exampleText.val("");
-  $exampleDescription.val("");
+  $inventoryText.val("");
+  $inventoryDescription.val("");
 };
 
-// handleDeleteBtnClick is called when an example's delete button is clicked
-// Remove the example from the db and refresh the list
+// handleDeleteBtnClick is called when an inventory's delete button is clicked
+// Remove the item from the db and refresh the list
 var handleDeleteBtnClick = function() {
   var idToDelete = $(this)
     .parent()
     .attr("data-id");
 
-  API.deleteExample(idToDelete).then(function() {
-    refreshExamples();
+  API.deleteInventory(idToDelete).then(function() {
+    refreshInventory();
   });
 };
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
-$exampleList.on("click", ".delete", handleDeleteBtnClick);
+$inventoryList.on("click", ".delete", handleDeleteBtnClick);
