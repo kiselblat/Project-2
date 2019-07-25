@@ -11,20 +11,26 @@ var API = {
       headers: {
         "Content-Type": "application/json"
       },
+      url: "api/create",
       type: "POST",
-      url: "api/examples",
       data: JSON.stringify(example)
     });
   },
   getExamples: function() {
     return $.ajax({
-      url: "api/examples",
+      url: "api/all",
       type: "GET"
+    });
+  },
+  getExamples: function() {
+    return $.ajax({
+      url: "api/update",
+      type: "PUT"
     });
   },
   deleteExample: function(id) {
     return $.ajax({
-      url: "api/examples/" + id,
+      url: "api/delete/" + id,
       type: "DELETE"
     });
   }
