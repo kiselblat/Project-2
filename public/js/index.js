@@ -1,4 +1,5 @@
 // Get references to page elements
+
 var $itemName = $("#itemName");
 var $categoryName = $("#categoryName");
 var $locationName = $("#locationName");
@@ -23,7 +24,7 @@ var API = {
   },
   getAll: function() {
     return $.ajax({
-      url: "api/all",
+      url: "api/inventory",
       type: "GET"
     });
   },
@@ -47,18 +48,20 @@ var API = {
   }
 };
 
+
 // refreshExamples gets new examples from the db and repopulates the list
 var refreshExamples = function() {
   API.getAll().then(function(data) {
     var $examples = data.map(function(example) {
+
       var $a = $("<a>")
-        .text(example.text)
-        .attr("href", "/example/" + example.id);
+        .text(inventory.text)
+        .attr("href", "/inventory/" + inventory.id);
 
       var $li = $("<li>")
         .attr({
           class: "list-group-item",
-          "data-id": example.id
+          "data-id": inventory.id
         })
         .append($a);
 
@@ -71,13 +74,13 @@ var refreshExamples = function() {
       return $li;
     });
 
-    $exampleList.empty();
-    $exampleList.append($examples);
+    $inventoryList.empty();
+    $inventoryList.append($inventory);
   });
 };
 
-// handleFormSubmit is called whenever we submit a new example
-// Save the new example to the db and refresh the list
+// handleFormSubmit is called whenever we submit a new item
+// Save the new item to the db and refresh the list
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
@@ -101,10 +104,11 @@ var handleFormSubmit = function(event) {
   });
 
   $form.reset();
+
 };
 
-// handleDeleteBtnClick is called when an example's delete button is clicked
-// Remove the example from the db and refresh the list
+// handleDeleteBtnClick is called when an inventory's delete button is clicked
+// Remove the item from the db and refresh the list
 var handleDeleteBtnClick = function() {
   var idToDelete = $(this)
     .parent()
@@ -117,4 +121,4 @@ var handleDeleteBtnClick = function() {
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
-$exampleList.on("click", ".delete", handleDeleteBtnClick);
+$inventoryList.on("click", ".delete", handleDeleteBtnClick);
