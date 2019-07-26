@@ -2,13 +2,12 @@ var db = require("../models");
 
 module.exports = function (app) {
   app.get("/api/locations", function (req, res) {
+
     db.Location.findAll({
     }).then(function (dbLocations) {
       res.json(dbLocations);
     });
   });
-
-
 
   app.get("/api/locations/:id", function (req, res) {
     // Find one Author with the id in req.params.id and return them to the user with res.json
@@ -18,6 +17,7 @@ module.exports = function (app) {
       }, include: [db.Category]
     }).then(function(dbLocations) {
       res.json(dbLocations);
+
     });
   });
 
