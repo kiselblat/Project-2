@@ -6,20 +6,27 @@
         <h2>This is our Home Page!</h2>
         <form class="clearfix mb-4" action="POST">
           <div class="form-group">
-            <label for="example-text">Example Text</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
+            <label for="inventory-text">Inventory Text</label>
+            <input type="text" id="inventory-text" class="form-control" aria-describedby="inventory-text" placeholder="Enter Example Text">
           </div>
           <div class="form-group">
-            <label for="example-description">Example Description</label>
-            <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Example Description"></textarea>
+            <label for="inventory-description">Inventory Description</label>
+            <textarea class="form-control" id="inventory-description" aria-describedby="inventory-description" placeholder="Enter Example Description"></textarea>
           </div>
           <button id="submit" class="btn btn-primary float-right">Submit</button>
         </form>
-        <h3>Examples:</h3>
-        <ul id="example-list" class="list-group">
-          {{#each examples}}
+        <h3>Inventory:</h3>
+        <ul id="inventory-list" class="list-group">
+          {{#each Inventory}}
           <li data-id="{{this.id}}" class="list-group-item">
-            <a href="example/{{this.id}}">{{this.text}}</a>
+            <a href="inventory/{{this.id}}">{{this.category}}</a>
+            <p>
+            <strong>ID</strong>: {{this.item}}</p>
+          <p>
+          <p>
+            <strong>Category</strong>: {{this.category}}</p>
+          <p>
+            <strong>Description:</strong> {{this.description}}</p>
             <button class="btn btn-danger float-right delete">ｘ</button>
           </li>
           {{/each}}
