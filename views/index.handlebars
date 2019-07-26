@@ -3,21 +3,65 @@
     <div class="row">
       <div class="col-8 offset-2">
         <h1>{{msg}}</h1>
-        <h2>This is our Home Page!</h2>
+        <h2>Ready for Nesting?</h2>
         <form class="clearfix mb-4" action="POST">
-          <div class="form-group">
-            <label for="inventory-text">Inventory Text</label>
-            <input type="text" id="inventory-text" class="form-control" aria-describedby="inventory-text" placeholder="Enter Example Text">
+          <div class="row">
+            <div class="col-md">
+              <div class="form-group">
+                <label for="example-text">Item Name</label>
+                <input type="text" id="item-name" class="form-control" aria-describedby="item-name" placeholder="Enter Item Name">
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="inventory-description">Inventory Description</label>
-            <textarea class="form-control" id="inventory-description" aria-describedby="inventory-description" placeholder="Enter Example Description"></textarea>
+          <div class="row">
+            <div class="col-md">
+              <div class="form-group">
+                <label for="example-text">Category</label>
+                <input type="text" id="category" class="form-control" aria-describedby="category" placeholder="Enter Example Text">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="form-group">
+                <label for="example-text">Location</label>
+                <input type="text" id="location" class="form-control" aria-describedby="location" placeholder="Enter Example Text">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="example-text">Cost</label>
+                <input type="number" id="cost" class="form-control" aria-describedby="cost" placeholder="$0.00">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-text">Serial Number</label>
+                <input type="text" id="serial-number" class="form-control" aria-describedby="serial-number" placeholder="Serial Number if Applicable">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="example-text">Warrenty Expiration</label>
+                <input type="date" id="warrenty-exp" class="form-control" aria-describedby="warrenty-exp" placeholder="">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md">
+              <div class="form-group">
+                <label for="example-description">Description</label>
+                <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Notes and Description"></textarea>
+              </div>
+            </div>
           </div>
           <button id="submit" class="btn btn-primary float-right">Submit</button>
         </form>
-        <h3>Inventory:</h3>
-        <ul id="inventory-list" class="list-group">
-          {{#each Inventory}}
+        <h3>Items:</h3>
+        <ul id="example-list" class="list-group">
+          {{#each items}}
           <li data-id="{{this.id}}" class="list-group-item">
             <a href="inventory/{{this.id}}">{{this.category}}</a>
             <p>
