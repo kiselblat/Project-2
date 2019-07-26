@@ -1,34 +1,45 @@
 // Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
+var $itemName = $("#itemName");
+var $categoryName = $("#categoryName");
+var $locationName = $("#locationName");
+var $description = $("#description");
+var $cost = $("#cost");
+var $serialNum = $("#serialNum");
+var $warrantyExp = $("#warrantyExp");
+var $form = $("#form");
 var $submitBtn = $("#submit");
-var $exampleList = $("#example-list");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveExample: function(example) {
+  addItem: function(newItem) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
       },
       url: "api/create",
       type: "POST",
-      data: JSON.stringify(example)
+      data: JSON.stringify(newItem)
     });
   },
-  getExamples: function() {
+  getAll: function() {
     return $.ajax({
       url: "api/all",
       type: "GET"
     });
   },
-  getExamples: function() {
+  getOne: function() {
+    return $.ajax({
+      url: "api/:item",
+      type: "GET"
+    });
+  },
+  editItem: function() {
     return $.ajax({
       url: "api/update",
       type: "PUT"
     });
   },
-  deleteExample: function(id) {
+  deleteItem: function(id) {
     return $.ajax({
       url: "api/delete/" + id,
       type: "DELETE"
@@ -38,7 +49,7 @@ var API = {
 
 // refreshExamples gets new examples from the db and repopulates the list
 var refreshExamples = function() {
-  API.getExamples().then(function(data) {
+  API.getAll().then(function(data) {
     var $examples = data.map(function(example) {
       var $a = $("<a>")
         .text(example.text)
@@ -70,22 +81,26 @@ var refreshExamples = function() {
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
-  var example = {
-    text: $exampleText.val().trim(),
-    description: $exampleDescription.val().trim()
+  var newItem = {
+    item: $itemName.val().trim(),
+    category: $categoryName.val().trim(),
+    location: $locationName.val().trim(),
+    description: $description.val().trim(),
+    cost: $cost.val().trim(),
+    serialNum: $serialNum.val().trim(),
+    warranty: $warrantyExp.val().trim()
   };
 
-  if (!(example.text && example.description)) {
-    alert("You must enter an example text and description!");
+  if (!(newItem.item || newItem.category || newItem.location)) {
+    alert("Item name, category, and location cannot be blank.");
     return;
   }
 
-  API.saveExample(example).then(function() {
+  API.addItem(newItem).then(function() {
     refreshExamples();
   });
 
-  $exampleText.val("");
-  $exampleDescription.val("");
+  $form.reset();
 };
 
 // handleDeleteBtnClick is called when an example's delete button is clicked
@@ -95,7 +110,7 @@ var handleDeleteBtnClick = function() {
     .parent()
     .attr("data-id");
 
-  API.deleteExample(idToDelete).then(function() {
+  API.deleteItem(idToDelete).then(function() {
     refreshExamples();
   });
 };
