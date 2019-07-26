@@ -1,40 +1,59 @@
 // Get references to page elements
-var $inventoryText = $("#inventory-text");
-var $inventoryDescription = $("#inventory-description");
+
+var $itemName = $("#itemName");
+var $categoryName = $("#categoryName");
+var $locationName = $("#locationName");
+var $description = $("#description");
+var $cost = $("#cost");
+var $serialNum = $("#serialNum");
+var $warrantyExp = $("#warrantyExp");
+var $form = $("#form");
 var $submitBtn = $("#submit");
-var $inventoryList = $("#inventory-list");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveInventory: function(inventory) {
+  addItem: function(newItem) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
       },
       url: "api/create",
       type: "POST",
-      url: "api/inventory",
-      data: JSON.stringify(inventory)
+      data: JSON.stringify(newItem)
     });
   },
-  getInventory: function() {
+  getAll: function() {
     return $.ajax({
       url: "api/inventory",
       type: "GET"
     });
   },
-  deleteInventory: function(id) {
+  getOne: function() {
     return $.ajax({
-      url: "api/inventory/" + id,
+      url: "api/:item",
+      type: "GET"
+    });
+  },
+  editItem: function() {
+    return $.ajax({
+      url: "api/update",
+      type: "PUT"
+    });
+  },
+  deleteItem: function(id) {
+    return $.ajax({
+      url: "api/delete/" + id,
       type: "DELETE"
     });
   }
 };
 
-// refreshInventory gets new inventory from the db and repopulates the list
-var refreshInventory = function() {
-  API.getInventory().then(function(data) {
-    var $inventory = data.map(function(inventory) {
+
+// refreshExamples gets new examples from the db and repopulates the list
+var refreshExamples = function() {
+  API.getAll().then(function(data) {
+    var $examples = data.map(function(example) {
+
       var $a = $("<a>")
         .text(inventory.text)
         .attr("href", "/inventory/" + inventory.id);
@@ -65,22 +84,27 @@ var refreshInventory = function() {
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
-  var inventory = {
-    text: $inventoryText.val().trim(),
-    description: $inventoryDescription.val().trim()
+  var newItem = {
+    item: $itemName.val().trim(),
+    category: $categoryName.val().trim(),
+    location: $locationName.val().trim(),
+    description: $description.val().trim(),
+    cost: $cost.val().trim(),
+    serialNum: $serialNum.val().trim(),
+    warranty: $warrantyExp.val().trim()
   };
 
-  if (!(inventory.text && inventory.description)) {
-    alert("You must enter an example text and description!");
+  if (!(newItem.item || newItem.category || newItem.location)) {
+    alert("Item name, category, and location cannot be blank.");
     return;
   }
 
-  API.saveInventory(inventory).then(function() {
-    refreshInventory();
+  API.addItem(newItem).then(function() {
+    refreshExamples();
   });
 
-  $inventoryText.val("");
-  $inventoryDescription.val("");
+  $form.reset();
+
 };
 
 // handleDeleteBtnClick is called when an inventory's delete button is clicked
@@ -90,8 +114,8 @@ var handleDeleteBtnClick = function() {
     .parent()
     .attr("data-id");
 
-  API.deleteInventory(idToDelete).then(function() {
-    refreshInventory();
+  API.deleteItem(idToDelete).then(function() {
+    refreshExamples();
   });
 };
 
