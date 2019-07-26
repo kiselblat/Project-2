@@ -2,8 +2,10 @@ var db = require("../models");
 
 module.exports = function (app) {
   app.get("/api/locations", function (req, res) {
-    db.Location.findAll({}).then(function (dbLocation) {
-      res.json(dbLocation);
+
+    db.Location.findAll({
+    }).then(function (dbLocations) {
+      res.json(dbLocations);
     });
   });
 
@@ -12,17 +14,18 @@ module.exports = function (app) {
     db.Location.findOne({
       where: {
         id: req.params.id
-      }
-    }).then(function (dbLocation) {
-      res.json(dbLocation);
+      }, include: [db.Category]
+    }).then(function(dbLocations) {
+      res.json(dbLocations);
+
     });
   });
 
   app.post("/api/locations", function (req, res) {
     // Create an Author with the data available to us in req.body
     console.log(req.body);
-    db.Location.create(req.body).then(function (dbLocation) {
-      res.json(dbLocation);
+    db.Location.create(req.body).then(function (dbLocations) {
+      res.json(dbLocations);
     });
   });
 
@@ -32,8 +35,8 @@ module.exports = function (app) {
       where: {
         id: req.params.id
       }
-    }).then(function (dbLocation) {
-      res.json(dbLocation);
+    }).then(function (dbLocations) {
+      res.json(dbLocations);
     });
   });
 
