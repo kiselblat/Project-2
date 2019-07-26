@@ -23,6 +23,7 @@ module.exports = function(app) {
     db.Inventory.destroy({ where: { id: req.params.id } }).then(function(dbInventory) {
       res.json(dbInventory);
     });
+  });
 
   //  Get all items
   //  app.get("/api/all", function(req, res) {

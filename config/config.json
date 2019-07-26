@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "inventory",
+    "password": "19621104",
+    "database": "burgers_db",
     "host": "localhost",
     "dialect": "mysql"
   },
