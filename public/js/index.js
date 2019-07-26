@@ -11,6 +11,7 @@ var API = {
       headers: {
         "Content-Type": "application/json"
       },
+      url: "api/create",
       type: "POST",
       url: "api/inventory",
       data: JSON.stringify(inventory)
