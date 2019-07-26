@@ -49,10 +49,10 @@ var API = {
 };
 
 
-// refreshExamples gets new examples from the db and repopulates the list
+// refreshExamples gets new items from the db and repopulates the list
 var refreshExamples = function() {
   API.getAll().then(function(data) {
-    var $examples = data.map(function(example) {
+    var $inventory = data.map(function(inventory) {
 
       var $a = $("<a>")
         .text(inventory.text)

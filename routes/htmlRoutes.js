@@ -8,7 +8,7 @@ module.exports = function(app) {
       // console.log(dbInventory);
       res.render("index", {
         msg: "Welcome!",
-        Inventory: dbInventory
+        items: dbInventory
       });
     });
   });
