@@ -120,4 +120,4 @@ var handleDeleteBtnClick = function () {
 
 // Add event listeners to the submit and delete buttons
 $("#submit").unbind().click(handleFormSubmit);
-// $inventoryList.on("click", ".delete", handleDeleteBtnClick);
+$(".delete").click(handleDeleteBtnClick);
