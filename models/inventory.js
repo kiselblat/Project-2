@@ -26,5 +26,14 @@ module.exports = function(sequelize, DataTypes) {
     serialNum: DataTypes.STRING,
     warrantyExp: DataTypes.STRING
   });
+  Inventory.associate = function(models) {
+    Inventory.hasOne(models.Category, {
+      onDelete: "cascade"
+    });
+    Inventory.hasOne(models.Location, {
+      onDelete: "cascade"
+    });
+  };
+
   return Inventory;
 };
