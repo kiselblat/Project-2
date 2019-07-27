@@ -32,7 +32,8 @@ var API = {
   },
   deleteItem: function (id) {
     return $.ajax({
-      url: "api/delete/" + id,
+      // url: "api/delete/" + id,
+      url: "api/inventory/" + id,
       type: "DELETE"
     });
   }
@@ -114,6 +115,7 @@ var handleDeleteBtnClick = function () {
   var idToDelete = $(this)
     .parent()
     .attr("data-id");
+  console.log(idToDelete);
 
   API.deleteItem(idToDelete).then(function () {
     refreshExamples();
@@ -122,5 +124,5 @@ var handleDeleteBtnClick = function () {
 
 // Add event listeners to the submit and delete buttons
 $("#submit").unbind().click(handleFormSubmit);
-
-// $(".delete").click(handleDeleteBtnClick);
+// $inventoryList.on("click", ".delete", handleDeleteBtnClick);
+$(".delete").click(handleDeleteBtnClick);
