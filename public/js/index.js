@@ -1,3 +1,4 @@
+var $inventoryList = $("inventory-list");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -53,6 +54,7 @@ var refreshExamples = function() {
           "data-id": inventory.id
         })
         .append($a);
+      console.log(inventory.id);
 
       var $button = $("<button>")
         .addClass("btn btn-danger float-right delete")
@@ -99,7 +101,7 @@ var handleFormSubmit = function (event) {
   if ((!newItem.item) || (!newItem.category) || (!newItem.location)) {
     alert("Item name, category, and location must be completed.");
     return;
-  }  
+  }
 
   API.addItem(newItem).then(function () {
     refreshExamples();
@@ -120,4 +122,5 @@ var handleDeleteBtnClick = function () {
 
 // Add event listeners to the submit and delete buttons
 $("#submit").unbind().click(handleFormSubmit);
-$(".delete").click(handleDeleteBtnClick);
+
+// $(".delete").click(handleDeleteBtnClick);

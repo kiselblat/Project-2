@@ -1,30 +1,30 @@
 /* eslint-disable prettier/prettier */
 var db = require("../models");
 
-module.exports = function(app) {
-  
+module.exports = function (app) {
+
   // Get all inventory
-  app.get("/api/inventory", function(req, res) {
+  app.get("/api/inventory", function (req, res) {
     console.log("DataRetrieving!");
-    db.Inventory.findAll({}).then(function(dbInventory) {
+    db.Inventory.findAll({}).then(function (dbInventory) {
       res.json(dbInventory);
     });
   });
 
   // Create a new inventory
-  app.post("/api/inventory", function(req, res) {
-    db.Inventory.create(req.body).then(function(dbInventory) {
+  app.post("/api/inventory", function (req, res) {
+    db.Inventory.create(req.body).then(function (dbInventory) {
       console.log(dbInventory);
       res.json(dbInventory);
     });
   });
 
   // Delete an inventory by id
-  app.delete("/api/inventory/:id", function(req, res) {
-    db.Inventory.destroy({ where: { id: req.params.id } }).then(function(dbInventory) {
-      res.json(dbInventory);
-    });
-  });
+  // app.delete("/api/inventory/:id", function (req, res) {
+  //   db.Inventory.destroy({ where: { id: req.params.id } }).then(function (dbInventory) {
+  //     res.json(dbInventory);
+  //   });
+  // });
 
   //  Get all items
   //  app.get("/api/all", function(req, res) {
@@ -48,9 +48,9 @@ module.exports = function(app) {
   // });
 
   // Delete an item by id
-  // app.delete("/api/delete/:id", function(req, res) {
-  //  db.Inventory.destroy({ where: { id: req.params.id } }).then(function(result) {
-  //    res.json(result);
-  //  });
-  // });
+  app.delete("/api/delete/:id", function (req, res) {
+    db.Inventory.destroy({ where: { id: req.params.id } }).then(function (result) {
+      res.json(result);
+    });
+  });
 };
