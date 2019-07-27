@@ -100,18 +100,15 @@ var handleFormSubmit = function (event) {
     warranty: $warrantyExp
   };
 
-  $("#form").trigger("reset");
-
-  console.log(newItem);
-
   if ((!newItem.item) || (!newItem.category) || (!newItem.location)) {
     alert("Item name, category, and location must be completed.");
     return;
   }
-  $(".add-form").children("input").val("");
+
 
   API.addItem(newItem).then(function () {
     refreshExamples();
+    $(".add-form input, textarea").val("");
   });
 };
 
