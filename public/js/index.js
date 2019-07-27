@@ -1,46 +1,35 @@
-// Get references to page elements
-
-var $itemName = $("#itemName");
-var $categoryName = $("#categoryName");
-var $locationName = $("#locationName");
-var $description = $("#description");
-var $cost = $("#cost");
-var $serialNum = $("#serialNum");
-var $warrantyExp = $("#warrantyExp");
-var $form = $("#form");
-var $submitBtn = $("#submit");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  addItem: function(newItem) {
+  addItem: function (newItem) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
       },
-      url: "api/create",
+      url: "api/inventory",
       type: "POST",
       data: JSON.stringify(newItem)
     });
   },
-  getAll: function() {
+  getAll: function () {
     return $.ajax({
       url: "api/inventory",
       type: "GET"
     });
   },
-  getOne: function() {
+  getOne: function () {
     return $.ajax({
       url: "api/:item",
       type: "GET"
     });
   },
-  editItem: function() {
+  editItem: function () {
     return $.ajax({
       url: "api/update",
       type: "PUT"
     });
   },
-  deleteItem: function(id) {
+  deleteItem: function (id) {
     return $.ajax({
       url: "api/delete/" + id,
       type: "DELETE"
@@ -81,44 +70,54 @@ var refreshExamples = function() {
 
 // handleFormSubmit is called whenever we submit a new item
 // Save the new item to the db and refresh the list
-var handleFormSubmit = function(event) {
+var handleFormSubmit = function (event) {
   event.preventDefault();
 
+  var $itemName = $("#itemName").val().trim();
+  var $category = $("#category").val().trim();
+  var $location = $("#location").val().trim();
+  var $description = $("#description").val().trim();
+  var $cost = $("#cost").val().trim();
+  var $serialNum = $("#serialNum").val().trim();
+  var $warrantyExp = $("#warrantyExp").val().trim();
+
+
   var newItem = {
-    item: $itemName.val().trim(),
-    category: $categoryName.val().trim(),
-    location: $locationName.val().trim(),
-    description: $description.val().trim(),
-    cost: $cost.val().trim(),
-    serialNum: $serialNum.val().trim(),
-    warranty: $warrantyExp.val().trim()
+    item: $itemName,
+    category: $category,
+    location: $location,
+    description: $description,
+    cost: $cost,
+    serialNum: $serialNum,
+    warranty: $warrantyExp
   };
 
-  if (!(newItem.item || newItem.category || newItem.location)) {
-    alert("Item name, category, and location cannot be blank.");
-    return;
-  }
+  $("#form").trigger("reset");
 
-  API.addItem(newItem).then(function() {
+  console.log(newItem);
+
+  if ((!newItem.item) || (!newItem.category) || (!newItem.location)) {
+    alert("Item name, category, and location must be completed.");
+    return;
+  }  
+
+  API.addItem(newItem).then(function () {
     refreshExamples();
   });
-
-  $form.reset();
-
 };
 
 // handleDeleteBtnClick is called when an inventory's delete button is clicked
 // Remove the item from the db and refresh the list
-var handleDeleteBtnClick = function() {
+var handleDeleteBtnClick = function () {
   var idToDelete = $(this)
     .parent()
     .attr("data-id");
 
-  API.deleteItem(idToDelete).then(function() {
+  API.deleteItem(idToDelete).then(function () {
     refreshExamples();
   });
 };
 
 // Add event listeners to the submit and delete buttons
-$submitBtn.on("click", handleFormSubmit);
-$inventoryList.on("click", ".delete", handleDeleteBtnClick);
+$("#submit").unbind().click(handleFormSubmit);
+// $inventoryList.on("click", ".delete", handleDeleteBtnClick);

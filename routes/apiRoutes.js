@@ -14,6 +14,7 @@ module.exports = function(app) {
   // Create a new inventory
   app.post("/api/inventory", function(req, res) {
     db.Inventory.create(req.body).then(function(dbInventory) {
+      console.log(dbInventory);
       res.json(dbInventory);
     });
   });
