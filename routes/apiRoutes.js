@@ -19,12 +19,12 @@ module.exports = function (app) {
     });
   });
 
-  // Delete an inventory by id
-  app.delete("/api/inventory/:id", function (req, res) {
-    db.Inventory.destroy({ where: { id: req.params.id } }).then(function (dbInventory) {
-      res.json(dbInventory);
-    });
-  });
+  // // Delete an inventory by id
+  // app.delete("/api/inventory/:id", function (req, res) {
+  //   db.Inventory.destroy({ where: { id: req.params.id } }).then(function (dbInventory) {
+  //     res.json(dbInventory);
+  //   });
+  // });
 
   //  Get all items
   //  app.get("/api/all", function(req, res) {
@@ -47,10 +47,10 @@ module.exports = function (app) {
   //  });
   // });
 
-  // // Delete an item by id
-  // app.delete("/api/delete/:id", function (req, res) {
-  //   db.Inventory.destroy({ where: { id: req.params.id } }).then(function (result) {
-  //     res.json(result);
-  //   });
-  // });
+  // Delete an item by id
+  app.delete("/api/delete/:id", function (req, res) {
+    db.Inventory.destroy({ where: { id: req.params.id } }).then(function (result) {
+      res.json(result);
+    });
+  });
 };

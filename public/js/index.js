@@ -1,4 +1,4 @@
-var $inventoryList = $("inventory-list");
+var $inventoryList = $("#inventory-list");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -32,8 +32,8 @@ var API = {
   },
   deleteItem: function (id) {
     return $.ajax({
-      // url: "api/delete/" + id,
-      url: "api/inventory/" + id,
+      url: "api/delete/" + id,
+      // url: "api/inventory/" + id,
       type: "DELETE"
     });
   }
@@ -46,16 +46,21 @@ var refreshExamples = function() {
     var $inventory = data.map(function(inventory) {
 
       var $a = $("<a>")
-        .text(inventory.text)
+        .text(inventory.category)
         .attr("href", "/inventory/" + inventory.id);
 
+      var $p1 = $("<p>")
+        .html("<strong>ID</strong>"+": " + inventory.item);
+      var $p2 = $("<p>")
+        .html("<strong>Category</strong>"+": " + inventory.category);
+      var $p3 = $("<p>")
+        .html("<strong>Description</strong>"+": " + inventory.description);
       var $li = $("<li>")
         .attr({
           class: "list-group-item",
           "data-id": inventory.id
         })
-        .append($a);
-      console.log(inventory.id);
+        .append($a,$p1,$p2,$p3);
 
       var $button = $("<button>")
         .addClass("btn btn-danger float-right delete")
@@ -103,6 +108,7 @@ var handleFormSubmit = function (event) {
     alert("Item name, category, and location must be completed.");
     return;
   }
+  $(".add-form").children("input").val("");
 
   API.addItem(newItem).then(function () {
     refreshExamples();
@@ -124,5 +130,5 @@ var handleDeleteBtnClick = function () {
 
 // Add event listeners to the submit and delete buttons
 $("#submit").unbind().click(handleFormSubmit);
-// $inventoryList.on("click", ".delete", handleDeleteBtnClick);
-$(".delete").click(handleDeleteBtnClick);
+$inventoryList.on("click", ".delete", handleDeleteBtnClick);
+// $(".delete").click(handleDeleteBtnClick);
