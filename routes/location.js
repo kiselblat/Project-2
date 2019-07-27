@@ -15,7 +15,7 @@ module.exports = function (app) {
       where: {
         id: req.params.id
       }, include: [db.Category]
-    }).then(function(dbLocations) {
+    }).then(function (dbLocations) {
       res.json(dbLocations);
 
     });
