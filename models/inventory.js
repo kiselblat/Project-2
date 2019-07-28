@@ -1,6 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
 
-
   var Inventory = sequelize.define("Inventory", {
     item: {
       type: DataTypes.STRING,
@@ -9,31 +8,24 @@ module.exports = function (sequelize, DataTypes) {
         len: [1]
       }
     },
-    // category: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    //   validate: {
-    //     len: [1]
-    //   }
-    // },
-    // location: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    //   validate: {
-    //     len: [1]
-    //   }
-    // },
     description: DataTypes.TEXT,
     cost: DataTypes.FLOAT(6, 2),
     serialNum: DataTypes.STRING,
     warrantyExp: DataTypes.STRING
   });
+
   Inventory.associate = function(models) {
-    Inventory.hasOne(models.Category, {
-      onDelete: "cascade"
+    // Each inventory item belongs to a category
+    Inventory.belongsTo(models.Category, {
+      foreignKey: {
+        allowNull: false,
+      }
     });
-    Inventory.hasOne(models.Location, {
-      onDelete: "cascade"
+    // Each inventory item belongs to a location
+    Inventory.belongsTo(models.Location, {
+      foreignKey: {
+        allowNull: false,
+      }
     });
   };
 
