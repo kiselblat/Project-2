@@ -23,11 +23,6 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     });
-    Category.hasMany(models.Inventory, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
     // Category.hasMany(models.Inventory, {
     //   foreignKey: {
     //     allowNull: false

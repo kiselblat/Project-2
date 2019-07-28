@@ -22,11 +22,6 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     });
-    Location.hasMany(models.Inventory, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
     // Location.hasMany(models.Inventory, {
     //   foreignKey: {
     //     allowNull: false
