@@ -5,11 +5,19 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Category.associate = function(models) {
-    // Associating Category with Posts
-    // When an Category is deleted, also delete any associated Posts
-    Category.hasMany(models.Category, {
-      onDelete: "cascade"
+    // We're saying that a Category should belong to an Author
+    // A Category can't be created without an Author due to the foreign key constraint
+  
+    Category.belongsTo(models.Inventory, {
+      foreignKey: {
+        allowNull: false
+      }
     });
+    // Category.hasMany(models.Inventory, {
+    //   foreignKey: {
+    //     allowNull: false
+    //   }
+    // });
   };
 
   return Category;
