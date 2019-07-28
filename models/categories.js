@@ -1,7 +1,17 @@
 module.exports = function(sequelize, DataTypes) {
   var Category = sequelize.define("Category", {
-    // Giving the Category model a name of type STRING
-    name: DataTypes.STRING
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1]
+      }
+    },
+    body: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      len: [1]
+    }
   });
 
   Category.associate = function(models) {
@@ -9,6 +19,11 @@ module.exports = function(sequelize, DataTypes) {
     // A Category can't be created without an Author due to the foreign key constraint
   
     Category.belongsTo(models.Inventory, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+    Category.hasMany(models.Inventory, {
       foreignKey: {
         allowNull: false
       }
