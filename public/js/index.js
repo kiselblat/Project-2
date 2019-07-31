@@ -101,7 +101,7 @@ var handleFormSubmit = function (event) {
     warranty: $warrantyExp
   };
 
-  if ((!newItem.item) || (!newItem.category) || (!newItem.location)) {
+  if ((!newItem.item) || (!newItem.CategoryId) || (!newItem.LocationId)) {
     alert("Item name, category, and location must be completed.");
     return;
   }
