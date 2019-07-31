@@ -36,7 +36,7 @@ var API = {
       // url: "api/inventory/" + id,
       type: "DELETE"
     });
-  }
+  },
 };
 
 
@@ -82,18 +82,19 @@ var handleFormSubmit = function (event) {
   event.preventDefault();
 
   var $itemName = $("#itemName").val().trim();
-  var $category = $("#category").val().trim();
-  var $location = $("#location").val().trim();
+  var $category = $("#category").find(":selected").val();
+  var $location = $("#location").find(":selected").val();
   var $description = $("#description").val().trim();
   var $cost = $("#cost").val().trim();
   var $serialNum = $("#serialNum").val().trim();
   var $warrantyExp = $("#warrantyExp").val().trim();
 
+  console.log($category,$location);
 
   var newItem = {
     item: $itemName,
-    category: $category,
-    location: $location,
+    CategoryId: $category,
+    LocationId: $location,
     description: $description,
     cost: $cost,
     serialNum: $serialNum,

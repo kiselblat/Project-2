@@ -16,16 +16,30 @@
           <div class="row">
             <div class="col-md">
               <div class="form-group">
-                <label for="example-text">Category</label>
-                <input type="text" id="category" class="form-control" aria-describedby="category" placeholder="Enter Example Text">
+                <label for="category">Category</label>
+                <select id="category" class="form-control" aria-describedby="category">
+                  {{#each categories}}
+                    <option value="{{this.id}}">{{this.categoryName}}</option>
+                  {{/each}}
+                    {{!-- This was supposed to be a link to an add new category page.
+                          As expected, it doesn't work. --}}
+                    {{!-- <option><a href="/categories">Add New Category</a></option> --}}
+                </select>
+                {{!-- <label for="example-text">Category</label>
+                <input type="text" id="category" class="form-control" aria-describedby="category" placeholder="Enter Example Text"> --}}
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-8">
               <div class="form-group">
-                <label for="example-text">Location</label>
-                <input type="text" id="location" class="form-control" aria-describedby="location" placeholder="Enter Example Text">
+                <label for="location">Location</label>
+                <select id="location" class="form-control" aria-describedby="location">
+                  {{#each locations}}
+                    <option value="{{this.id}}">{{this.locationName}}</option>
+                  {{/each}}
+                </select>
+                {{!-- <input type="text" id="location" class="form-control" aria-describedby="location" placeholder="Enter Example Text"> --}}
               </div>
             </div>
             <div class="col-md-4">

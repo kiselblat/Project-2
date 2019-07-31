@@ -3,13 +3,24 @@ var db = require("../models");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    db.Inventory.findAll({}).then(function(dbInventory) {
-      console.log("Databack!");
-      // console.log(dbInventory);
-      res.render("index", {
-        msg: "Welcome!",
-        items: dbInventory
+  
+    db.Category.findAll({}).then(function(dbCategories) {
+
+      db.Location.findAll({}).then(function(dbLocations) {
+
+        db.Inventory.findAll({}).then(function(dbInventory) {
+          console.log("Databack!");
+          // console.log(dbInventory);
+          res.render("index", {
+            msg: "Welcome!",
+            items: dbInventory,
+            categories: dbCategories,
+            locations: dbLocations
+          });
+        });
+
       });
+
     });
   });
 
@@ -18,6 +29,24 @@ module.exports = function(app) {
     db.Inventory.findOne({ where: { id: req.params.id } }).then(function(dbInventory) {
       res.render("inventory", {
         Inventory: dbInventory
+      });
+    });
+  });
+
+  // Load category page
+  app.get("/categories", function(req, res) {
+    db.Category.findAll({}).then(function(dbCategories) {
+      res.render("categories", {
+        categories: dbCategories
+      });
+    });
+  });
+
+  // Load location page
+  app.get("/locations", function(req, res) {
+    db.Location.findAll({}).then(function(dbLocations) {
+      res.render("locations", {
+        locations: dbLocations
       });
     });
   });
