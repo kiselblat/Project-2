@@ -1,36 +1,89 @@
 <div id="home">
   <div class="container">
     <div class="row">
-      <div class="col-8 offset-2">
+      <div class="col-md offset-2">
         <h1>{{msg}}</h1>
         <h2>Ready for Nesting?</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md">
+        <h3>Items:</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md">
+        <ul id="inventory-list" class="list-group">
+          {{#each items}}
+          <div data-id="{{this.id}}" class="card text-white bg-success mb-3" style="max-width: 18rem;">
+            <div class="card-header text-right">
+              {{!-- {{this.item}}
+              <i class="fas fa-camera"></i> <!-- this icon's 1) style prefix == fas and 2) icon name == camera -->
+              <i class="fas fa-camera"></i> <!-- using an <i> element to reference the icon -->
+              <span class="fas fa-camera"></span> <!-- using a <span> element to reference the icon --> --}}
+
+              {{!-- <i class="fas fa-check"></i> --}}
+              <i class="fas fa-pen-alt editing" data-toggle="modal" data-target="#myModal"></i>
+              <!-- Modal -->
+
+              <i class="fas fa-trash-alt delete"></i>
+            </div>
+
+            <div class="card-body">
+              <h6 class="card-title">{{this.item}}</h6>
+              <p class="card-text">{{this.description}}</p>
+              <p class="card-text">{{this.cost}}</p>
+            </div>
+          </div>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        {{!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button> --}}
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
         <form class="clearfix mb-4 add-form" action="POST">
+          <div id="hiddenID" style="display: none">
+            <input type="text" id="idSeq" class="form-control" aria-describedby="idSeq"
+                  placeholder="Enter ID Number">
+          </div>
           <div class="row">
             <div class="col-md">
               <div class="form-group">
-                <label for="example-text">Item Name</label>
-                <input type="text" id="itemName" class="form-control" aria-describedby="itemName" placeholder="Enter Item Name">
+                <badge>Item Name</badge>
+                <input type="text" id="itemName" class="form-control" aria-describedby="itemName"
+                  placeholder="Enter Item Name">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md">
               <div class="form-group">
-                <label for="example-text">Category</label>
-                <input type="text" id="category" class="form-control" aria-describedby="category" placeholder="Enter Example Text">
+                <badge for="example-text">Category</badge>
+                <input type="text" id="category" class="form-control" aria-describedby="category"
+                  placeholder="Enter Example Text">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-8">
               <div class="form-group">
-                <label for="example-text">Location</label>
-                <input type="text" id="location" class="form-control" aria-describedby="location" placeholder="Enter Example Text">
+                <badge for="example-text">Location</badge>
+                <input type="text" id="location" class="form-control" aria-describedby="location"
+                  placeholder="Enter Example Text">
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label for="example-text">Cost</label>
+                <badge for="example-text">Cost</badge>
                 <input type="number" id="cost" class="form-control" aria-describedby="cost" placeholder="$0.00">
               </div>
             </div>
@@ -38,13 +91,14 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="example-text">Serial Number</label>
-                <input type="text" id="serialNum" class="form-control" aria-describedby="serialNum" placeholder="Serial Number if Applicable">
+                <badge for="example-text">Serial Number</badge>
+                <input type="text" id="serialNum" class="form-control" aria-describedby="serialNum"
+                  placeholder="Serial Number if Applicable">
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="example-text">Warrenty Expiration</label>
+                <badge for="example-text">Warrenty Expiration</badge>
                 <input type="date" id="warrantyExp" class="form-control" aria-describedby="warrentyExp" placeholder="">
               </div>
             </div>
@@ -52,35 +106,21 @@
           <div class="row">
             <div class="col-md">
               <div class="form-group">
-                <label for="example-description">Description</label>
-                <textarea class="form-control" id="description" aria-describedby="description" placeholder="Enter Notes and Description"></textarea>
+                <badge for="example-description">Description</badge>
+                <textarea class="form-control" id="description" aria-describedby="description"
+                  placeholder="Enter Notes and Description"></textarea>
               </div>
             </div>
           </div>
-          <button id="submit" class="btn btn-primary float-right">Submit</button>
+          {{!-- <button id="submit" class="btn btn-primary float-right">Submit</button> --}}
         </form>
-        <h3>Items:</h3>
-        <ul id="inventory-list" class="list-group">
-          {{#each items}}
-          <li data-id="{{this.id}}" class="list-group-item">
-            <a href="inventory/{{this.id}}">{{this.category}}</a>
-            <p>
-              <strong>ID</strong>: {{this.item}}
-            </p>
-            <p>
-              <strong>Category</strong>: {{this.category}}
-            </p>
-            <p>
-              <strong>Description:</strong> {{this.description}}
-            </p>
-            <button class="btn btn-danger float-right delete">ｘ</button>
-          </li>
-          {{/each}}
-        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="submit" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
       </div>
     </div>
   </div>
 </div>
-
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>

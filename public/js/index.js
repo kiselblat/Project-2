@@ -18,16 +18,18 @@ var API = {
       type: "GET"
     });
   },
-  getOne: function () {
+  getOne: function (id) {
     return $.ajax({
-      url: "api/:item",
+      // url: "api/:item",
+      url:"api/inventory/" + id,
       type: "GET"
     });
   },
-  editItem: function () {
+  editItem: function (item) {
     return $.ajax({
-      url: "api/update",
-      type: "PUT"
+      url: "api/update/",
+      type: "PUT",
+      data: JSON.stringify(item)
     });
   },
   deleteItem: function (id) {
@@ -81,6 +83,7 @@ var refreshExamples = function() {
 var handleFormSubmit = function (event) {
   event.preventDefault();
 
+  var $id = $("#idSeq").val().trim();
   var $itemName = $("#itemName").val().trim();
   var $category = $("#category").val().trim();
   var $location = $("#location").val().trim();
@@ -89,8 +92,18 @@ var handleFormSubmit = function (event) {
   var $serialNum = $("#serialNum").val().trim();
   var $warrantyExp = $("#warrantyExp").val().trim();
 
-
   var newItem = {
+    item: $itemName,
+    category: $category,
+    location: $location,
+    description: $description,
+    cost: $cost,
+    serialNum: $serialNum,
+    warranty: $warrantyExp
+  };
+
+  var updateItem = {
+    id: parseInt($id),
     item: $itemName,
     category: $category,
     location: $location,
@@ -103,22 +116,37 @@ var handleFormSubmit = function (event) {
   $("#form").trigger("reset");
 
   console.log(newItem);
+  console.log("id here:" + $id);
 
   if ((!newItem.item) || (!newItem.category) || (!newItem.location)) {
     alert("Item name, category, and location must be completed.");
     return;
   }
+  if ((!updateItem.item) || (!updateItem.category) || (!updateItem.location)) {
+    alert("Item name, category, and location must be completed.");
+    return;
+  }
+
   $(".add-form").children("input").val("");
 
-  API.addItem(newItem).then(function () {
-    refreshExamples();
-  });
+  if ($id === null){
+    API.addItem(newItem).then(function () {
+      refreshExamples();
+    });
+  }
+  else {
+    API.editItem(updateItem).then(function () {
+      refreshExamples();
+    });
+  }
+  
 };
 
 // handleDeleteBtnClick is called when an inventory's delete button is clicked
 // Remove the item from the db and refresh the list
 var handleDeleteBtnClick = function () {
   var idToDelete = $(this)
+    .parent()
     .parent()
     .attr("data-id");
   console.log(idToDelete);
@@ -128,7 +156,33 @@ var handleDeleteBtnClick = function () {
   });
 };
 
+// handleEditBtnClick is called when inventory's edit button is clicked
+var handleEditBtnClick = function() {
+  var idToEdit = $(this)
+    .parent()
+    .parent()
+    .attr("data-id");
+  console.log(idToEdit);
+
+  API.getOne(idToEdit).then(function (data) {
+
+    $(".modal-body #itemName").val(data.item);
+    $(".modal-body #category").val(data.category);
+    $(".modal-body #location").val(data.location);
+    $(".modal-body #cost").val(data.cost);
+    $(".modal-body #serialNum").val(data.serialNum);
+    $(".modal-body #warrantyExp").val(data.warranty);
+    $(".modal-body #description").val(data.description);
+    $(".modal-body #idSeq").val(data.id);
+    // $(".modal-body #itemName").val(data.item);
+
+    console.log(data.warranty);
+  });
+};
+
 // Add event listeners to the submit and delete buttons
 $("#submit").unbind().click(handleFormSubmit);
+// $("#saveChanges").unbind().click(handleFormUpdate);
 $inventoryList.on("click", ".delete", handleDeleteBtnClick);
+$inventoryList.on("click", ".editing", handleEditBtnClick);
 // $(".delete").click(handleDeleteBtnClick);
