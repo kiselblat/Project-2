@@ -1,3 +1,4 @@
+
 $emailInput = $("#email-address");
 $messageText = $("#additional-message");
 
@@ -22,7 +23,7 @@ encloseMail = function () {
   $messageBody.append($additionalMessage, $("<br>"), $inventoryTable);
 
   var newMail = {
-    from: "little.mailer.mailer@gmail.com",
+    // from: "Email Sender" // this gets assigned in the route to avoid hardcoding
     to: $emailInput.val().trim(),
     subject: "Item Report from Nesterly",
     html: $messageBody.prop("outerHTML"),
