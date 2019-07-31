@@ -1,14 +1,20 @@
 module.exports = function(sequelize, DataTypes) {
   var Category = sequelize.define("Category", {
-    // Giving the Category model a name of type STRING
-    name: DataTypes.STRING
+    categoryName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1]
+      }
+    },
   });
 
   Category.associate = function(models) {
-    // Associating Category with Posts
-    // When an Category is deleted, also delete any associated Posts
-    Category.hasMany(models.Category, {
-      onDelete: "cascade"
+    // A catagory has many different items in it
+    Category.hasMany(models.Inventory, {
+      foreignKey: {
+        allowNull: false
+      }
     });
   };
 

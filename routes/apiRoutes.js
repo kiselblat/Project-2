@@ -41,11 +41,11 @@ module.exports = function (app) {
   // });
 
   // Update an item
-  // app.put("/api/update", function(req, res) {
-  // db.Inventory.update(req.body).then(function(result) {
-  //    res.json(result);
-  //  });
-  // });
+  app.put("/api/update", function (req, res) {
+    db.Inventory.update(req.body).then(function (result) {
+      res.json(result);
+    });
+  });
 
   // Delete an item by id
   app.delete("/api/delete/:id", function (req, res) {

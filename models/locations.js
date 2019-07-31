@@ -1,15 +1,22 @@
 module.exports = function(sequelize, DataTypes) {
   var Location = sequelize.define("Location", {
-    // Giving the Author model a name of type STRING
-    name: DataTypes.STRING
+    locationName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1]
+      }
+    },
   });
-  
+
   Location.associate = function(models) {
-    // Associating Author with Posts
-    // When an Author is deleted, also delete any associated Posts
-    Location.hasMany(models.Location, {
-      onDelete: "cascade"
+    // Each location contains many items
+    Location.hasMany(models.Inventory, {
+      foreignKey: {
+        allowNull: false
+      }
     });
   };
+
   return Location;
 };
