@@ -23,14 +23,14 @@
               <span class="fas fa-camera"></span> <!-- using a <span> element to reference the icon --> --}}
 
               {{!-- <i class="fas fa-check"></i> --}}
-              <i class="fas fa-pen-alt editing" data-toggle="modal" data-target="#myModal"></i>
+              <i class="fas fa-pen-alt editing" data-toggle="modal" data-target="#myModal">Edit</i>
               <!-- Modal -->
 
-              <i class="fas fa-trash-alt delete"></i>
+              <i class="fas fa-trash-alt delete">Delete</i>
             </div>
 
             <div class="card-body">
-              <h6 class="card-title">{{this.item}}</h6>
+              <p class="card-title">{{this.item}}</p>
               <p class="card-text">{{this.description}}</p>
               <p class="card-text">{{this.cost}}</p>
             </div>

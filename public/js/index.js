@@ -27,6 +27,9 @@ var API = {
   },
   editItem: function (item) {
     return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
       url: "api/update/",
       type: "PUT",
       data: JSON.stringify(item)
@@ -47,30 +50,77 @@ var refreshExamples = function() {
   API.getAll().then(function(data) {
     var $inventory = data.map(function(inventory) {
 
-      var $a = $("<a>")
-        .text(inventory.category)
-        .attr("href", "/inventory/" + inventory.id);
+      // var $a = $("<a>")
+      //   .text(inventory.category)
+      //   .attr("href", "/inventory/" + inventory.id);
 
-      var $p1 = $("<p>")
-        .html("<strong>ID</strong>"+": " + inventory.item);
-      var $p2 = $("<p>")
-        .html("<strong>Category</strong>"+": " + inventory.category);
-      var $p3 = $("<p>")
-        .html("<strong>Description</strong>"+": " + inventory.description);
-      var $li = $("<li>")
+      // var $p1 = $("<p>")
+      //   .html("<strong>ID</strong>"+": " + inventory.item);
+      // var $p2 = $("<p>")
+      //   .html("<strong>Category</strong>"+": " + inventory.category);
+      // var $p3 = $("<p>")
+      //   .html("<strong>Description</strong>"+": " + inventory.description);
+      // var $li = $("<li>")
+      //   .attr({
+      //     class: "list-group-item",
+      //     "data-id": inventory.id
+      //   })
+      //   .append($a,$p1,$p2,$p3);
+
+      // var $button = $("<button>")
+      //   .addClass("btn btn-danger float-right delete")
+      //   .text("ｘ");
+
+      // $li.append($button);
+      // var $editCard = $("<i class='fas fa-pen-alt editing' data-toggle='modal' data-target='#myModal'></i>").html();
+      var $editCard = $("<i>");
+      $editCard.attr("class","fas fa-pen-alt editing");
+      $editCard.attr("data-toggle", "modal");
+      $editCard.attr("data-target", "#myModal");
+      $editCard.text("Edit");
+
+      // var $deleteCard = $("<i>")
+      //   .attr({
+      //     class:"fas fa-trash-alt delete"
+      //   });
+      // var $deleteCard = $("<i class='fas fa-trash-alt delete'></i>").html();
+      var $deleteCard = $("<i>");
+      $deleteCard.attr("class", "fas fa-trash-alt delete");
+      $deleteCard.text("Delete");
+
+      var $cardHeader = $("<div>")
+        .attr("class","card-header text-right")
+        .append($editCard, $deleteCard);
+
+      
+      var $cardT1 = $("<p>")
         .attr({
-          class: "list-group-item",
-          "data-id": inventory.id
+          class: "card-title"
         })
-        .append($a,$p1,$p2,$p3);
+        .append(inventory.item);
+      var $cardT2 = $("<p>")
+        .attr({
+          class: "card-text"
+        })
+        .append(inventory.description);
+      var $cardT3 = $("<p>")
+        .attr({
+          class: "card-text"
+        })
+        .append(inventory.cost);
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
+      var $cardBody = $("<div>")
+        .attr({class:"card-body"})
+        .append($cardT1, $cardT2, $cardT3);
+      var $card = $("<div>")
+        .attr({
+          class:"card text-white bg-success mb-3",
+          "data-id": inventory.id,
+          style:"max-width: 18rem"
+        })
+        .append($cardHeader, $cardBody);
 
-      $li.append($button);
-
-      return $li;
+      return $card;
     });
 
     $inventoryList.empty();
@@ -99,7 +149,7 @@ var handleFormSubmit = function (event) {
     description: $description,
     cost: $cost,
     serialNum: $serialNum,
-    warranty: $warrantyExp
+    warrantyExp: $warrantyExp
   };
 
   var updateItem = {
@@ -108,9 +158,9 @@ var handleFormSubmit = function (event) {
     category: $category,
     location: $location,
     description: $description,
-    cost: $cost,
+    cost: parseFloat($cost),
     serialNum: $serialNum,
-    warranty: $warrantyExp
+    warrantyExp: $warrantyExp
   };
 
   $("#form").trigger("reset");
@@ -135,6 +185,7 @@ var handleFormSubmit = function (event) {
     });
   }
   else {
+    console.log("Now ID is:" + $id);
     API.editItem(updateItem).then(function () {
       refreshExamples();
     });
