@@ -92,7 +92,6 @@ var refreshExamples = function() {
         .attr("class","card-header text-right")
         .append($editCard, $deleteCard);
 
-      
       var $cardT1 = $("<p>")
         .attr({
           class: "card-title"
@@ -157,8 +156,8 @@ var handleFormSubmit = function (event) {
   var updateItem = {
     id: parseInt($id),
     item: $itemName,
-    category: $category,
-    location: $location,
+    CategoryId: $category,
+    LocationId: $location,
     description: $description,
     cost: parseFloat($cost),
     serialNum: $serialNum,
@@ -170,11 +169,11 @@ var handleFormSubmit = function (event) {
   console.log(newItem);
   console.log("id here:" + $id);
 
-  if ((!newItem.item) || (!newItem.category) || (!newItem.location)) {
+  if ((!newItem.item) || (!newItem.CategoryId) || (!newItem.LocationId)) {
     alert("Item name, category, and location must be completed.");
     return;
   }
-  if ((!updateItem.item) || (!updateItem.category) || (!updateItem.location)) {
+  if ((!updateItem.item) || (!updateItem.CategoryId) || (!updateItem.LocationId)) {
     alert("Item name, category, and location must be completed.");
     return;
   }
@@ -222,16 +221,16 @@ var handleEditBtnClick = function() {
   API.getOne(idToEdit).then(function (data) {
 
     $(".modal-body #itemName").val(data.item);
-    $(".modal-body #category").val(data.category);
-    $(".modal-body #location").val(data.location);
+    $(".modal-body #category").val(data.CategoryId);
+    $(".modal-body #location").val(data.LocationId);
     $(".modal-body #cost").val(data.cost);
     $(".modal-body #serialNum").val(data.serialNum);
-    $(".modal-body #warrantyExp").val(data.warranty);
+    $(".modal-body #warrantyExp").val(data.warrantyExp);
     $(".modal-body #description").val(data.description);
     $(".modal-body #idSeq").val(data.id);
     // $(".modal-body #itemName").val(data.item);
 
-    console.log(data.warranty);
+    console.log(data.warrantyExp);
   });
 };
 
