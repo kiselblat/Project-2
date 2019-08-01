@@ -21,11 +21,10 @@ encloseMail = function () {
   }).then(function(dbItems) {
 
     var $messageBody = $("<div/>");
+    var $defaultMessage = $("<p/>").text("Attached is a file containing all the items in this database.");
     var $additionalMessage = $("<p/>").text($messageText.val().trim());
-    // TODO: Make table of items here
-    var $inventoryTable = $("<p/>").text("This is where the inventory could go.");
     
-    $messageBody.append($additionalMessage, $("<br>"), $inventoryTable);
+    $messageBody.append($defaultMessage, $("<br>"), $additionalMessage);
     
     var newMail = {
       // from: "Email Sender" // this gets assigned in the route to avoid hardcoding
