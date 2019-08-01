@@ -41,7 +41,7 @@ var API = {
       // url: "api/inventory/" + id,
       type: "DELETE"
     });
-  }
+  },
 };
 
 
@@ -135,17 +135,19 @@ var handleFormSubmit = function (event) {
 
   var $id = $("#idSeq").val().trim();
   var $itemName = $("#itemName").val().trim();
-  var $category = $("#category").val().trim();
-  var $location = $("#location").val().trim();
+  var $category = $("#category").find(":selected").val();
+  var $location = $("#location").find(":selected").val();
   var $description = $("#description").val().trim();
   var $cost = $("#cost").val().trim();
   var $serialNum = $("#serialNum").val().trim();
   var $warrantyExp = $("#warrantyExp").val().trim();
 
+  console.log($category,$location);
+
   var newItem = {
     item: $itemName,
-    category: $category,
-    location: $location,
+    CategoryId: $category,
+    LocationId: $location,
     description: $description,
     cost: $cost,
     serialNum: $serialNum,
@@ -182,12 +184,14 @@ var handleFormSubmit = function (event) {
   if ($id === null){
     API.addItem(newItem).then(function () {
       refreshExamples();
+      $(".add-form input, textarea").val("");
     });
   }
   else {
     console.log("Now ID is:" + $id);
     API.editItem(updateItem).then(function () {
       refreshExamples();
+      $(".add-form input, textarea").val("");
     });
   }
   
