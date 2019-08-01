@@ -51,6 +51,14 @@ module.exports = function(app) {
     });
   });
 
+  app.get("/mailer", function (req, res) {
+    db.Inventory.findAll({}).then(function (dbItems) {
+      res.render("mailer", {
+        items: dbItems,
+      });
+    });
+  });
+
   // Render 404 page for any unmatched routes
   app.get("*", function(req, res) {
     res.render("404");
