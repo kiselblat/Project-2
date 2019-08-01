@@ -180,7 +180,7 @@ var handleFormSubmit = function (event) {
 
   $(".add-form").children("input").val("");
 
-  if ($id === null){
+  if (!$id){
     API.addItem(newItem).then(function () {
       refreshExamples();
       $(".add-form input, textarea").val("");
