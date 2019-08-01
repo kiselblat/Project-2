@@ -30,15 +30,10 @@ encloseMail = function () {
     var newMail = {
       // from: "Email Sender" // this gets assigned in the route to avoid hardcoding
       to: $emailInput.val().trim(),
-      subject: "Item Report from Nesterly",
       html: $messageBody.prop("outerHTML"),
-      attachments: [
-        {
-          filename: "attachment.txt",
-          content: JSON.stringify(dbItems)
-        }
-      ]
+      attachment: dbItems
     };
+
     postMail(newMail);
     console.log("...and sent!");
     resetForm();
