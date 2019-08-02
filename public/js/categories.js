@@ -27,11 +27,12 @@ var API = {
 };
 
 var refreshCategories = function() {
-  API.getAll().then(function(data) {
+  API.getCategories().then(function(data) {
+
     var $category = data.map(function(categories) {
 
       var $a = $("<a>")
-        .text(categories.category)
+        .text(categories.id)
         .attr("href", "/categories/" + categories.id);
 
       var $p1 = $("<p>")
@@ -98,3 +99,4 @@ var handleDeleteBtnClick = function () {
 // Add event listeners to the submit and delete buttons
 $("#submit").unbind().click(handleFormSubmit);
 $categoryList.on("click", ".delete", handleDeleteBtnClick);
+refreshCategories();
