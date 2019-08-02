@@ -8,29 +8,34 @@
     <div class="row" id="inventory">
       <div class="col-md">
         <h4 class="font-weight-lighter">Start your home inventory:</h4>
+
+        {{!-- <button type="button" class="btn btn-secondary font-weight-light" data-toggle="modal" data-target="#myModal">Add --}}
+          {{!-- New Item</button> --}}
+        <a href="/categories">Add New Category</a> | <a href="/locations">Add New Location</a> | <a href="#" data-toggle="modal" data-target="#myModal">Add New Category</a>
+{{!-- senoritabroccolini
         <button type="button" class="btn btn-secondary font-weight-light" data-toggle="modal" data-target="#myModal">Add
           New Item</button>
         <a href="/categories">Add New Category</a> | <a href="/locations">Add New Location</a>
-
+ --!}}
       </div>
     </div>
 
     <div class="row">
       <div class="col-md">
-        <ul id="inventory-list" class="list-group">
+        <div id="inventory-list" class="card-columns">
           {{#each items}}
           <div data-id="{{this.id}}" class="card text-white bg-success mb-3" style="max-width: 18rem;">
-            <div class="card-header text-right">
+            <div class="card-header">
               {{!-- {{this.item}}
               <i class="fas fa-camera"></i> <!-- this icon's 1) style prefix == fas and 2) icon name == camera -->
               <i class="fas fa-camera"></i> <!-- using an <i> element to reference the icon -->
               <span class="fas fa-camera"></span> <!-- using a <span> element to reference the icon --> --}}
 
               {{!-- <i class="fas fa-check"></i> --}}
-              <i class="fas fa-pen-alt editing" data-toggle="modal" data-target="#myModal">Edit</i>
+              <i class="fas fa-pen-alt editing float-left" data-toggle="modal" data-target="#myModal"></i>
               <!-- Modal -->
 
-              <i class="fas fa-trash-alt delete">Delete</i>
+              <i class="fas fa-trash-alt delete float-right" data-toggle="modal" data-target="#deleteModal"></i>
             </div>
 
             <div class="card-body">
@@ -40,21 +45,35 @@
             </div>
           </div>
           {{/each}}
-        </ul>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!--Items Container-->
-<div class="container" id="items">
-  <div class="row">
-    <div class="col-md">
-      <h5 class="font-weight-light text-secondary">Items:</h5>
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        {{!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button> --}}
+        <h4 class="modal-title" id="myModalLabel">Delete this item?</h4>
+      </div>
+      <div class="modal-body" style="display: none">
+        <form class="clearfix mb-4 add-form" action="POST">
+          <div id="hiddenID">
+            <input type="text" id="idSeqDelete" class="form-control" aria-describedby="idSeqDelete"
+              placeholder="Enter ID Number">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button id="confirming" type="button" class="btn btn-primary" data-dismiss="modal">Confirm</button>
+      </div>
     </div>
   </div>
 </div>
-<!--Add Item Form--->
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
