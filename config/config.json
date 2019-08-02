@@ -1,12 +1,12 @@
 {
   "development": {
     "username": "root",
-    "password": "",
-    "database": "project2",
+    "password": "ponies",
+    "database": "burgers_db",
     "host": "localhost",
     "dialect": "mysql"
   },
-  "test": {
+  "test": { 
     "username": "root",
     "password": null,
     "database": "testdb",
