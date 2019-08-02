@@ -1,22 +1,18 @@
-<div id="home">
+<div class="p-3 mb-2 bg-info text-white" id="home">
+  <div class="jumbotron text-info">
+    <h1 class="display-4">{{msg}}</h1>
+    <h3 class="font-weight-lighter">Ready for Nesting?</h>
+  </div>
+  <!--Main Container--->
   <div class="container">
-    <div class="row">
-      <div class="col-md offset-2">
-        <h1>{{msg}}</h1>
-        <h2>Ready for Nesting?</h2>
-      </div>
-    </div>
-    <div class="row">
+    <div class="row" id="inventory">
       <div class="col-md">
-        <h2>Create a New Item!</h2>
-        <button data-toggle="modal" data-target="#myModal">create a new item</button>
+        <h4 class="font-weight-lighter">Start your home inventory:</h4>
+        <button type="button" class="btn btn-secondary font-weight-light" data-toggle="modal" data-target="#myModal">Add
+          New Item</button>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md">
-        <h3>Items:</h3>
-      </div>
-    </div>
+
     <div class="row">
       <div class="col-md">
         <div id="inventory-list" class="card-columns">
@@ -78,7 +74,9 @@
       <div class="modal-header">
         {{!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
             aria-hidden="true">&times;</span></button> --}}
-        <h4 class="modal-title" id="myModalLabel">Edit Item Info</h4>
+
+        <h4 class="modal-title text-info font-weight-light" id="myModalLabel">Household Inventory</h4>
+
       </div>
       <div class="modal-body">
         <form class="clearfix mb-4 add-form" action="POST">
@@ -88,7 +86,7 @@
           <div class="row">
             <div class="col-md">
               <div class="form-group">
-                <badge>Item Name</badge>
+                <badge class="text-info font-weight-bold">Item Name</badge>
                 <input type="text" id="itemName" class="form-control" aria-describedby="itemName"
                   placeholder="Enter Item Name">
               </div>
@@ -97,7 +95,7 @@
           <div class="row">
             <div class="col-md">
               <div class="form-group">
-                <label for="category">Category</label>
+                <label for="category" class="text-info font-weight-bold">Category</label>
                 <select id="category" class="form-control" aria-describedby="category">
                   {{#each categories}}
                   <option value="{{this.id}}">{{this.categoryName}}</option>
@@ -114,7 +112,7 @@
           <div class="row">
             <div class="col-md-8">
               <div class="form-group">
-                <label for="location">Location</label>
+                <label for="location" class="text-info font-weight-bold">Location</label>
                 <select id="location" class="form-control" aria-describedby="location">
                   {{#each locations}}
                   <option value="{{this.id}}">{{this.locationName}}</option>
@@ -125,7 +123,7 @@
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <badge for="example-text">Cost</badge>
+                <badge for="example-text" class="text-info font-weight-bold">Cost</badge>
                 <input type="number" id="cost" class="form-control" aria-describedby="cost" placeholder="$0.00">
               </div>
             </div>
@@ -133,14 +131,14 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <badge for="example-text">Serial Number</badge>
-                <input type="text" id="serialNum" class="form-control" aria-describedby="serialNum"
-                  placeholder="Serial Number if Applicable">
+                <badge for="example-text" class="text-info font-weight-bold">Serial Number</badge>
+                <input type="text" id="serialNum" class="form-control text-info" aria-describedby="serialNum"
+                  placeholder="Serial # (if applicable)">
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <badge for="example-text">Warrenty Expiration</badge>
+                <badge for="example-text" class="text-info font-weight-bold">Warranty Expiration</badge>
                 <input type="date" id="warrantyExp" class="form-control" aria-describedby="warrentyExp" placeholder="">
               </div>
             </div>
@@ -148,7 +146,7 @@
           <div class="row">
             <div class="col-md">
               <div class="form-group">
-                <badge for="example-description">Description</badge>
+                <badge for="example-description" class="text-info font-weight-bold">Description</badge>
                 <textarea class="form-control" id="description" aria-describedby="description"
                   placeholder="Enter Notes and Description"></textarea>
               </div>
@@ -158,8 +156,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button id="submit" type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+        <button type="button" class="btn btn-default text-info" data-dismiss="modal">Close</button>
+        <button id="submit" type="button" class="btn btn-secondary" data-dismiss="modal">Submit</button>
       </div>
     </div>
   </div>
