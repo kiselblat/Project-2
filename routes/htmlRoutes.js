@@ -12,7 +12,7 @@ module.exports = function(app) {
           console.log("Databack!");
           // console.log(dbInventory);
           res.render("index", {
-            msg: "Welcome!",
+            msg: "Welcome To Nesterly",
             items: dbInventory,
             categories: dbCategories,
             locations: dbLocations
