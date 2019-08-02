@@ -8,8 +8,9 @@
     <div class="row" id="inventory">
       <div class="col-md">
         <h4 class="font-weight-lighter">Start your home inventory:</h4>
-        <button type="button" class="btn btn-secondary font-weight-light" data-toggle="modal" data-target="#myModal">Add
-          New Item</button>
+        {{!-- <button type="button" class="btn btn-secondary font-weight-light" data-toggle="modal" data-target="#myModal">Add --}}
+          {{!-- New Item</button> --}}
+        <a href="/categories">Add New Category</a> | <a href="/locations">Add New Location</a> | <a href="#" data-toggle="modal" data-target="#myModal">Add New Category</a>
       </div>
     </div>
 
@@ -28,8 +29,7 @@
               <i class="fas fa-pen-alt editing float-left" data-toggle="modal" data-target="#myModal"></i>
               <!-- Modal -->
 
-              <i class="fas fa-trash-alt delete float-right" data-toggle="modal"
-                data-target="#deleteModal"></i>
+              <i class="fas fa-trash-alt delete float-right" data-toggle="modal" data-target="#deleteModal"></i>
             </div>
 
             <div class="card-body">
@@ -56,7 +56,8 @@
       <div class="modal-body" style="display: none">
         <form class="clearfix mb-4 add-form" action="POST">
           <div id="hiddenID">
-            <input type="text" id="idSeqDelete" class="form-control" aria-describedby="idSeqDelete" placeholder="Enter ID Number">
+            <input type="text" id="idSeqDelete" class="form-control" aria-describedby="idSeqDelete"
+              placeholder="Enter ID Number">
           </div>
         </form>
       </div>
