@@ -50,43 +50,17 @@ var refreshExamples = function() {
   API.getAll().then(function(data) {
     var $inventory = data.map(function(inventory) {
 
-      // var $a = $("<a>")
-      //   .text(inventory.category)
-      //   .attr("href", "/inventory/" + inventory.id);
-
-      // var $p1 = $("<p>")
-      //   .html("<strong>ID</strong>"+": " + inventory.item);
-      // var $p2 = $("<p>")
-      //   .html("<strong>Category</strong>"+": " + inventory.category);
-      // var $p3 = $("<p>")
-      //   .html("<strong>Description</strong>"+": " + inventory.description);
-      // var $li = $("<li>")
-      //   .attr({
-      //     class: "list-group-item",
-      //     "data-id": inventory.id
-      //   })
-      //   .append($a,$p1,$p2,$p3);
-
-      // var $button = $("<button>")
-      //   .addClass("btn btn-danger float-right delete")
-      //   .text("ｘ");
-
-      // $li.append($button);
-      // var $editCard = $("<i class='fas fa-pen-alt editing' data-toggle='modal' data-target='#myModal'></i>").html();
       var $editCard = $("<i>");
-      $editCard.attr("class","fas fa-pen-alt editing");
+      $editCard.attr("class","fas fa-pen-alt editing float-left");
       $editCard.attr("data-toggle", "modal");
       $editCard.attr("data-target", "#myModal");
-      $editCard.text("Edit");
+      // $editCard.text("Edit");
 
-      // var $deleteCard = $("<i>")
-      //   .attr({
-      //     class:"fas fa-trash-alt delete"
-      //   });
-      // var $deleteCard = $("<i class='fas fa-trash-alt delete'></i>").html();
       var $deleteCard = $("<i>");
-      $deleteCard.attr("class", "fas fa-trash-alt delete");
-      $deleteCard.text("Delete");
+      $deleteCard.attr("class", "fas fa-trash-alt delete float-right");
+      $deleteCard.attr("data-toggle", "modal");
+      $deleteCard.attr("data-target", "#deleteModal");
+      // $deleteCard.text("Delete");
 
       var $cardHeader = $("<div>")
         .attr("class","card-header text-right")
@@ -118,7 +92,7 @@ var refreshExamples = function() {
           style:"max-width: 18rem"
         })
         .append($cardHeader, $cardBody);
-
+      
       return $card;
     });
 
@@ -198,12 +172,16 @@ var handleFormSubmit = function (event) {
 
 // handleDeleteBtnClick is called when an inventory's delete button is clicked
 // Remove the item from the db and refresh the list
-var handleDeleteBtnClick = function () {
-  var idToDelete = $(this)
-    .parent()
-    .parent()
-    .attr("data-id");
-  console.log(idToDelete);
+var handleConfirmBtnClick = function () {
+  // var idToDelete = $(this)
+  //   .parent()
+  //   .parent()
+  //   .attr("idSeqDelete");
+  event.preventDefault();
+
+  // var $id = $("#idSeq").val().trim();
+  var idToDelete = $("#idSeqDelete").val().trim();
+  console.log("id to delete:" + idToDelete);
 
   API.deleteItem(idToDelete).then(function () {
     refreshExamples();
@@ -234,9 +212,27 @@ var handleEditBtnClick = function() {
   });
 };
 
+// handleEditBtnClick is called when inventory's edit button is clicked
+var handleDeleteBtnClick = function() {
+  var idToEdit = $(this)
+    .parent()
+    .parent()
+    .attr("data-id");
+  console.log("Here is: "+idToEdit);
+
+  API.getOne(idToEdit).then(function (data) {
+
+    $(".modal-body #idSeqDelete").val(data.id);
+    console.log("Here are: " + data.id);
+    // $(".modal-body #itemName").val(data.item);
+  });
+};
+
 // Add event listeners to the submit and delete buttons
 $("#submit").unbind().click(handleFormSubmit);
+$("#confirming").unbind().click(handleConfirmBtnClick);
 // $("#saveChanges").unbind().click(handleFormUpdate);
-$inventoryList.on("click", ".delete", handleDeleteBtnClick);
+// $inventoryList.on("click", ".delete", handleDeleteBtnClick);
 $inventoryList.on("click", ".editing", handleEditBtnClick);
+$inventoryList.on("click", ".delete", handleDeleteBtnClick);
 // $(".delete").click(handleDeleteBtnClick);
