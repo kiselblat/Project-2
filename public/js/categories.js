@@ -45,11 +45,11 @@ var refreshCategories = function() {
         })
         .append($a,$p1);
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
+      // var $button = $("<button>")
+      //   .addClass("btn btn-danger float-right delete")
+      //   .text("ｘ");
 
-      $li.append($button);
+      // $li.append($button);
       // console.log(categories.categoryName);
       return $li;
       
