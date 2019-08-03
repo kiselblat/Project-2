@@ -1,21 +1,34 @@
+a {
+  color: darkblue
+}
+
 .list-group-item {
   line-height: 2.5;
 }
+
 .jumbotron{
   margin-top: 30px;
   margin-right: 50px;
   margin-left: 50px;
   text-align: center;
 }
+
 #inventory{
   text-align: center;
 }
+
 #categories{
   text-align: center;
 }
+
 .searchForm{
   margin:10px
 }
+
+.delete:hover, .editing:hover {
+  cursor: pointer;
+}
+
 /* #categories{
   margin-right: 600px;
   margin-left: 600px;
