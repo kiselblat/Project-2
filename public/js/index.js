@@ -20,7 +20,6 @@ var API = {
   },
   getOne: function (id) {
     return $.ajax({
-      // url: "api/:item",
       url:"api/inventory/" + id,
       type: "GET"
     });
@@ -38,58 +37,116 @@ var API = {
   deleteItem: function (id) {
     return $.ajax({
       url: "api/delete/" + id,
-      // url: "api/inventory/" + id,
       type: "DELETE"
+    });
+  },
+  searchItem: function (srch) {
+    return $.ajax({
+      url: "api/searchinventory/" + srch,
+      type: "GET"
     });
   },
 };
 
-
-// refreshExamples gets new items from the db and repopulates the list
-var refreshExamples = function() {
-  API.getAll().then(function(data) {
+// refreshSearchResults gets searched items from the db and repopulates the list
+var refreshSearchResults = function() {
+  event.preventDefault();
+  var srchitm = $("#inputSearch").val().trim();
+  if (!srchitm) {
+    refreshExamples();
+    return;
+  }
+  console.log(srchitm);
+  API.searchItem(srchitm).then(function(data) {
     var $inventory = data.map(function(inventory) {
 
       var $editCard = $("<i>");
       $editCard.attr("class","fas fa-pen-alt editing float-left");
       $editCard.attr("data-toggle", "modal");
       $editCard.attr("data-target", "#myModal");
-      // $editCard.text("Edit");
 
       var $deleteCard = $("<i>");
       $deleteCard.attr("class", "fas fa-trash-alt delete float-right");
       $deleteCard.attr("data-toggle", "modal");
       $deleteCard.attr("data-target", "#deleteModal");
-      // $deleteCard.text("Delete");
+
+      var $cardItem = $("<h6>").append(inventory.item);
 
       var $cardHeader = $("<div>")
-        .attr("class","card-header text-right")
-        .append($editCard, $deleteCard);
-
-      var $cardT1 = $("<p>")
-        .attr({
-          class: "card-title"
-        })
-        .append(inventory.item);
+        .attr("class","card-header text-center")
+        .append($editCard, $deleteCard, $cardItem);
+      
       var $cardT2 = $("<p>")
         .attr({
           class: "card-text"
         })
-        .append(inventory.description);
+        .text(inventory.description);
       var $cardT3 = $("<p>")
         .attr({
           class: "card-text"
         })
-        .append(inventory.cost);
+        .text("$ " + inventory.cost);
 
       var $cardBody = $("<div>")
         .attr({class:"card-body"})
-        .append($cardT1, $cardT2, $cardT3);
+        .append($cardT2, $cardT3);
       var $card = $("<div>")
         .attr({
           class:"card text-white bg-success mb-3",
           "data-id": inventory.id,
-          style:"max-width: 18rem"
+          style:"max-width: 30rem"
+        })
+        .append($cardHeader, $cardBody);
+      
+      return $card;
+    });
+
+    $inventoryList.empty();
+    $inventoryList.append($inventory);
+  });
+};
+
+// refreshExamples gets new items from the db and repopulates the list
+var refreshExamples = function() {
+  API.getAll().then(function(data) {
+
+    var $inventory = data.map(function(inventory) {
+
+      var $editCard = $("<i>");
+      $editCard.attr("class","fas fa-pen-alt editing float-left");
+      $editCard.attr("data-toggle", "modal");
+      $editCard.attr("data-target", "#myModal");
+
+      var $deleteCard = $("<i>");
+      $deleteCard.attr("class", "fas fa-trash-alt delete float-right");
+      $deleteCard.attr("data-toggle", "modal");
+      $deleteCard.attr("data-target", "#deleteModal");
+
+      var $cardItem = $("<h6>").append(inventory.item);
+
+      var $cardHeader = $("<div>")
+        .attr("class","card-header text-center")
+        .append($editCard, $deleteCard, $cardItem);
+      
+      var $cardT2 = $("<p>")
+        .attr({
+          class: "card-text"
+        })
+        .text(inventory.description);
+      var $cardT3 = $("<p>")
+        .attr({
+          class: "card-text"
+        })
+        .text("$ " + inventory.cost);
+
+      var $cardBody = $("<div>")
+        .attr({class:"card-body"})
+        .append($cardT2, $cardT3);
+      var $card = $("<div>")
+        .attr({
+          class:"card text-white bg-success mb-3",
+          "data-id": inventory.id,
+          style:"max-width: 30rem"
         })
         .append($cardHeader, $cardBody);
       
@@ -173,10 +230,7 @@ var handleFormSubmit = function (event) {
 // handleDeleteBtnClick is called when an inventory's delete button is clicked
 // Remove the item from the db and refresh the list
 var handleConfirmBtnClick = function () {
-  // var idToDelete = $(this)
-  //   .parent()
-  //   .parent()
-  //   .attr("idSeqDelete");
+
   event.preventDefault();
 
   // var $id = $("#idSeq").val().trim();
@@ -231,6 +285,7 @@ var handleDeleteBtnClick = function() {
 // Add event listeners to the submit and delete buttons
 $("#submit").unbind().click(handleFormSubmit);
 $("#confirming").unbind().click(handleConfirmBtnClick);
+$("#submitSearch").unbind().click(refreshSearchResults);
 // $("#saveChanges").unbind().click(handleFormUpdate);
 // $inventoryList.on("click", ".delete", handleDeleteBtnClick);
 $inventoryList.on("click", ".editing", handleEditBtnClick);
