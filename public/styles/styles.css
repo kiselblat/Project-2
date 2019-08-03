@@ -13,6 +13,9 @@
 #categories{
   text-align: center;
 }
+.searchForm{
+  margin:10px
+}
 /* #categories{
   margin-right: 600px;
   margin-left: 600px;
