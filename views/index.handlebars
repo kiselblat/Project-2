@@ -9,15 +9,12 @@
         <button id="submitSearch" class="btn btn-info searchButton">Submit</button>
       </div>
     </form>
-    {{!-- <input type="text" name="search" id="inputSearch" class="" placeholder="Search"/> --}}
   </div>
   <!--Main Container--->
   <div class="container">
     <div class="row" id="inventory">
       <div class="col-md">
         <h4 class="font-weight-lighter">Start your home inventory:</h4>
-
-        <!--Add Household Inventory Buttons-->
 
         <button type="button" class="btn btn-secondary font-weight-light" 
         data-toggle="modal" data-target="#myModal">
@@ -34,22 +31,6 @@
         <button type="button" class="btn btn-secondary font-weight-light">
           <a href="/mailer" style="color: white">Email My Info!</a>
         </button>
-        
-
-        {{!-- <button type="button" class="btn btn-secondary font-weight-light" data-toggle="modal" data-target="#myModal">Add --}}
-          {{!-- New Item</button> --}}
-        {{!-- <a href="/categories">Add New Category</a> | <a href="/locations">Add New Location</a> | <a href="#" data-toggle="modal" data-target="#myModal">Add New Category</a> --}}
-
-
-        {{!-- Link bar --}}
-        {{!-- <a href="#" data-toggle="modal" data-target="#myModal">Add New Item</a> | <a href="/categories">Add New Category</a> | <a href="/locations">Add New Location</a> | <a href="/mailer">Email Me A Copy</a> --}}
-
-      {{!-- <a href="/categories">Add New Category</a> | <a href="/locations">Add New Location</a> | <a href="#" data-toggle="modal" data-target="#myModal">Add New Category</a> }}
-{{!-- senoritabroccolini
-        <button type="button" class="btn btn-secondary font-weight-light" data-toggle="modal" data-target="#myModal">Add
-          New Item</button>
-        <a href="/categories">Add New Category</a> | <a href="/locations">Add New Location</a>
- --}}
 
       </div>
     </div>
@@ -57,26 +38,17 @@
       <div class="col-md"></div>
     </div>
 
+    <!-- Card Deck -->
     <div class="row">
       <div class="col-md">
         <div id="inventory-list" class="card-columns">
           {{#each items}}
           <div data-id="{{this.id}}" class="card text-white bg-success mb-3" style="max-width: 30rem;">
             <div class="card-header text-center">
-              {{!-- {{this.item}}
-              <i class="fas fa-camera"></i> <!-- this icon's 1) style prefix == fas and 2) icon name == camera -->
-              <i class="fas fa-camera"></i> <!-- using an <i> element to reference the icon -->
-              <span class="fas fa-camera"></span> <!-- using a <span> element to reference the icon --> --}}
-
-              {{!-- <i class="fas fa-check"></i> --}}
               <i class="fas fa-pen-alt editing float-left" data-toggle="modal" data-target="#myModal"></i>
               <i class="fas fa-trash-alt delete float-right" data-toggle="modal" data-target="#deleteModal"></i>
-              <!-- Modal -->
               <h6>{{this.item}}</h6>
-
-              
             </div>
-
             <div class="card-body">
               <p class="card-text">{{this.description}}</p>
               <p class="card-text">$ {{this.cost}}</p>
@@ -89,12 +61,11 @@
   </div>
 </div>
 
+ <!-- Modal for Card Deletion-->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        {{!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-            aria-hidden="true">&times;</span></button> --}}
         <h4 class="modal-title" id="myModalLabel">Delete this item?</h4>
       </div>
       <div class="modal-body" style="display: none">
@@ -113,15 +84,12 @@
   </div>
 </div>
 
+<!-- Modal for Card Modification-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        {{!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-            aria-hidden="true">&times;</span></button> --}}
-
         <h4 class="modal-title text-info font-weight-light" id="myModalLabel">Household Inventory</h4>
-
       </div>
       <div class="modal-body">
         <form class="clearfix mb-4 add-form" action="POST">
@@ -145,12 +113,7 @@
                   {{#each categories}}
                   <option value="{{this.id}}">{{this.categoryName}}</option>
                   {{/each}}
-                  {{!-- This was supposed to be a link to an add new category page.
-                          As expected, it doesn't work. --}}
-                  {{!-- <option><a href="/categories">Add New Category</a></option> --}}
                 </select>
-                {{!-- <label for="example-text">Category</label>
-                <input type="text" id="category" class="form-control" aria-describedby="category" placeholder="Enter Example Text"> --}}
               </div>
             </div>
           </div>
@@ -163,7 +126,6 @@
                   <option value="{{this.id}}">{{this.locationName}}</option>
                   {{/each}}
                 </select>
-                {{!-- <input type="text" id="location" class="form-control" aria-describedby="location" placeholder="Enter Example Text"> --}}
               </div>
             </div>
             <div class="col-md-4">
@@ -197,11 +159,7 @@
               </div>
             </div>
           </div>
-          {{!-- <button id="submit" class="btn btn-primary float-right">Submit</button> --}}
         </form>
-        {{!-- <div id="hiddenWarning" style="display: none">
-          <p style="color:red">Error: Item name, category, and location must be completed.</p>
-        </div> --}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default text-info" data-dismiss="modal">Close</button>

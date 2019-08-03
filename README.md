@@ -30,6 +30,7 @@ The Nesterly code is available from [github](https://github.com/kiselblat/Projec
 1. [ExpressJS](#expressjs)
 1. [Nodemailer](#nodemailer)
 1. [json2csv](#json2csv)
+1. [fuse.js] (#fusejs)
 
 #### NodeJS
 
@@ -56,6 +57,9 @@ In order to get your Gmail to send emails from Nodemon you may have to [allow ac
 #### json2csv
 
 [json2csv](https://www.npmjs.com/package/json2csv) is a package that converts a JSON object into a string that can be written to a csv file. In this case, the string is passed directly into an email object that Nodemailer then simply packages up in a csv file as an attachment.
+
+#### fuse
+[fusejs](https://www.npmjs.com/package/fuse.js) is an Apache License open source project. Maintaining and updating it takes up a good chunk of time, and there's still plenty of work to do. To be able to provide the project with the attention it deserves, I decided to experiment with sponsorship and/or support. If this works out, I can route the chunk of time that is usually spent on lucrative endeavors to this project.
 
 ### mySQL
 
