@@ -96,6 +96,6 @@ var handleDeleteBtnClick = function () {
 };
 
 // Add event listeners to the submit and delete buttons
-$("#submit").unbind().click(handleFormSubmit);
+$("#submitLocation").unbind().click(handleFormSubmit);
 $locationList.on("click", ".delete", handleDeleteBtnClick);
 refreshExamples();

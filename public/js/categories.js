@@ -78,9 +78,7 @@ var handleFormSubmit = function (event) {
     refreshCategories();
     $("#categoryName").val("");
   });
-
   // $.post("/api/catagories/create", newCategory).then(refreshExamples());
-
 };
 
 // handleDeleteBtnClick is called when an inventory's delete button is clicked
@@ -97,6 +95,6 @@ var handleDeleteBtnClick = function () {
 };
 
 // Add event listeners to the submit and delete buttons
-$("#submit").unbind().click(handleFormSubmit);
+$("#submitCategory").unbind().click(handleFormSubmit);
 $categoryList.on("click", ".delete", handleDeleteBtnClick);
 refreshCategories();
