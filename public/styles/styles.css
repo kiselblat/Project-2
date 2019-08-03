@@ -51,10 +51,11 @@ margin-right: 50px;
 .delete:hover, .editing:hover {
   cursor: pointer;
 }
-#locations{
+
+/* #locations{
   margin-right: 600px;
   margin-left: 600px;
-}
+} */
 
 /* #categories{
   margin-right: 600px;
