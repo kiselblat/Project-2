@@ -8,6 +8,7 @@
     <div class="row" id="inventory">
       <div class="col-md">
         <h4 class="font-weight-lighter">Start your home inventory:</h4>
+
         {{!-- <button type="button" class="btn btn-secondary font-weight-light" data-toggle="modal" data-target="#myModal">Add --}}
           {{!-- New Item</button> --}}
         <a href="#" data-toggle="modal" data-target="#myModal">Add New Item</a> | <a href="/categories">Add New Category</a> | <a href="/locations">Add New Location</a>
@@ -159,6 +160,9 @@
           </div>
           {{!-- <button id="submit" class="btn btn-primary float-right">Submit</button> --}}
         </form>
+        {{!-- <div id="hiddenWarning" style="display: none">
+          <p style="color:red">Error: Item name, category, and location must be completed.</p>
+        </div> --}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default text-info" data-dismiss="modal">Close</button>

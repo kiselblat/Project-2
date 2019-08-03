@@ -148,6 +148,7 @@ var handleFormSubmit = function (event) {
 
   if ((!newItem.item) || (!newItem.CategoryId) || (!newItem.LocationId)) {
     alert("Item name, category, and location must be completed.");
+    // $("#hiddenWarning").css("display: block");
     return;
   }
   if ((!updateItem.item) || (!updateItem.CategoryId) || (!updateItem.LocationId)) {
