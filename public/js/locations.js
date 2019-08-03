@@ -27,7 +27,7 @@ var API = {
 };
 
 var refreshExamples = function() {
-  API.getAll().then(function(data) {
+  API.getLocations().then(function(data) {
     var $location = data.map(function(locations) {
 
       var $a = $("<a>")
@@ -96,5 +96,6 @@ var handleDeleteBtnClick = function () {
 };
 
 // Add event listeners to the submit and delete buttons
-$("#submit").unbind().click(handleFormSubmit);
+$("#submitLocation").unbind().click(handleFormSubmit);
 $locationList.on("click", ".delete", handleDeleteBtnClick);
+refreshExamples();

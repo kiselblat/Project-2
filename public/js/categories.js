@@ -27,11 +27,12 @@ var API = {
 };
 
 var refreshCategories = function() {
-  API.getAll().then(function(data) {
+  API.getCategories().then(function(data) {
+
     var $category = data.map(function(categories) {
 
       var $a = $("<a>")
-        .text(categories.category)
+        .text(categories.id)
         .attr("href", "/categories/" + categories.id);
 
       var $p1 = $("<p>")
@@ -44,13 +45,14 @@ var refreshCategories = function() {
         })
         .append($a,$p1);
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
+      // var $button = $("<button>")
+      //   .addClass("btn btn-danger float-right delete")
+      //   .text("ｘ");
 
-      $li.append($button);
-
+      // $li.append($button);
+      // console.log(categories.categoryName);
       return $li;
+      
     });
 
     $categoryList.empty();
@@ -77,9 +79,7 @@ var handleFormSubmit = function (event) {
     refreshCategories();
     $("#categoryName").val("");
   });
-
   // $.post("/api/catagories/create", newCategory).then(refreshExamples());
-
 };
 
 // handleDeleteBtnClick is called when an inventory's delete button is clicked
@@ -96,5 +96,6 @@ var handleDeleteBtnClick = function () {
 };
 
 // Add event listeners to the submit and delete buttons
-$("#submit").unbind().click(handleFormSubmit);
+$("#submitCategory").unbind().click(handleFormSubmit);
 $categoryList.on("click", ".delete", handleDeleteBtnClick);
+refreshCategories();

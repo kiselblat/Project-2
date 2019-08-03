@@ -1,3 +1,62 @@
+a {
+  color: darkblue
+}
+
 .list-group-item {
   line-height: 2.5;
 }
+
+.jumbotron{
+  margin-top: 30px;
+  margin-right: 50px;
+  margin-left: 50px;
+  text-align: center;
+}
+
+#inventory{
+  text-align: center;
+}
+
+#categories{
+  margin-right: 50px;
+  margin-left: 50px;
+  text-align: center;
+  margin-top: 30px;
+  background-color: white;
+  border-color: #17a2b8!important;
+}
+
+#locationName {
+  text-align: center;
+  margin-top: 30px;
+ 
+}
+
+.main-container{
+background-color: #17a2b8!important;
+margin-left: 50px;
+margin-right: 50px;
+
+}
+
+#submit{
+  margin-top: 25px;
+  text-align: center;
+}
+
+.searchForm{
+  margin:10px
+}
+
+.delete:hover, .editing:hover {
+  cursor: pointer;
+}
+#locations{
+  margin-right: 600px;
+  margin-left: 600px;
+}
+
+/* #categories{
+  margin-right: 600px;
+  margin-left: 600px;
+} */
