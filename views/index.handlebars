@@ -11,21 +11,28 @@
 
         {{!-- <button type="button" class="btn btn-secondary font-weight-light" data-toggle="modal" data-target="#myModal">Add --}}
           {{!-- New Item</button> --}}
-        <a href="/categories">Add New Category</a> | <a href="/locations">Add New Location</a> | <a href="#" data-toggle="modal" data-target="#myModal">Add New Category</a>
+
+        <a href="#" data-toggle="modal" data-target="#myModal">Add New Item</a> | <a href="/categories">Add New Category</a> | <a href="/locations">Add New Location</a>
+
+      {{!-- <a href="/categories">Add New Category</a> | <a href="/locations">Add New Location</a> | <a href="#" data-toggle="modal" data-target="#myModal">Add New Category</a> }}
 {{!-- senoritabroccolini
         <button type="button" class="btn btn-secondary font-weight-light" data-toggle="modal" data-target="#myModal">Add
           New Item</button>
         <a href="/categories">Add New Category</a> | <a href="/locations">Add New Location</a>
  --}}
+
       </div>
+    </div>
+    <div class="row">
+      <div class="col-md"></div>
     </div>
 
     <div class="row">
       <div class="col-md">
         <div id="inventory-list" class="card-columns">
           {{#each items}}
-          <div data-id="{{this.id}}" class="card text-white bg-success mb-3" style="max-width: 18rem;">
-            <div class="card-header">
+          <div data-id="{{this.id}}" class="card text-white bg-success mb-3" style="max-width: 30rem;">
+            <div class="card-header text-center">
               {{!-- {{this.item}}
               <i class="fas fa-camera"></i> <!-- this icon's 1) style prefix == fas and 2) icon name == camera -->
               <i class="fas fa-camera"></i> <!-- using an <i> element to reference the icon -->
@@ -33,15 +40,16 @@
 
               {{!-- <i class="fas fa-check"></i> --}}
               <i class="fas fa-pen-alt editing float-left" data-toggle="modal" data-target="#myModal"></i>
-              <!-- Modal -->
-
               <i class="fas fa-trash-alt delete float-right" data-toggle="modal" data-target="#deleteModal"></i>
+              <!-- Modal -->
+              <h6>{{this.item}}</h6>
+
+              
             </div>
 
             <div class="card-body">
-              <p class="card-title">{{this.item}}</p>
               <p class="card-text">{{this.description}}</p>
-              <p class="card-text">{{this.cost}}</p>
+              <p class="card-text">$ {{this.cost}}</p>
             </div>
           </div>
           {{/each}}
@@ -161,6 +169,9 @@
           </div>
           {{!-- <button id="submit" class="btn btn-primary float-right">Submit</button> --}}
         </form>
+        {{!-- <div id="hiddenWarning" style="display: none">
+          <p style="color:red">Error: Item name, category, and location must be completed.</p>
+        </div> --}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default text-info" data-dismiss="modal">Close</button>

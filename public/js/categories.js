@@ -50,8 +50,9 @@ var refreshCategories = function() {
         .text("ｘ");
 
       $li.append($button);
-
+      // console.log(categories.categoryName);
       return $li;
+      
     });
 
     $categoryList.empty();
