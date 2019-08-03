@@ -62,34 +62,37 @@ var refreshExamples = function() {
       $deleteCard.attr("data-target", "#deleteModal");
       // $deleteCard.text("Delete");
 
-      var $cardHeader = $("<div>")
-        .attr("class","card-header text-right")
-        .append($editCard, $deleteCard);
+      var $cardItem = $("<h6>").append(inventory.item);
 
-      var $cardT1 = $("<p>")
-        .attr({
-          class: "card-title"
-        })
-        .append(inventory.item);
+      var $cardHeader = $("<div>")
+        .attr("class","card-header text-center")
+        .append($editCard, $deleteCard, $cardItem);
+      
+
+      // var $cardT1 = $("<p>")
+      //   .attr({
+      //     class: "card-title"
+      //   })
+      //   .append(inventory.item);
       var $cardT2 = $("<p>")
         .attr({
           class: "card-text"
         })
-        .append(inventory.description);
+        .text(inventory.description);
       var $cardT3 = $("<p>")
         .attr({
           class: "card-text"
         })
-        .append(inventory.cost);
+        .text("$ " + inventory.cost);
 
       var $cardBody = $("<div>")
         .attr({class:"card-body"})
-        .append($cardT1, $cardT2, $cardT3);
+        .append($cardT2, $cardT3);
       var $card = $("<div>")
         .attr({
           class:"card text-white bg-success mb-3",
           "data-id": inventory.id,
-          style:"max-width: 18rem"
+          style:"max-width: 30rem"
         })
         .append($cardHeader, $cardBody);
       
