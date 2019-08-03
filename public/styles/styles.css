@@ -11,7 +11,28 @@
   text-align: center;
 }
 #categories{
-  margin-right: 600px;
-  margin-left: 600px;
+  margin-right: 50px;
+  margin-left: 50px;
+  text-align: center;
+  margin-top: 30px;
+  background-color: white;
+  border-color: #17a2b8!important;
+}
+
+#locationName {
+  text-align: center;
+  margin-top: 30px;
+ 
+}
+
+.main-container{
+background-color: #17a2b8!important;
+margin-left: 50px;
+margin-right: 50px;
 
 }
+
+#submit{
+  margin-top: 25px;
+}
+
