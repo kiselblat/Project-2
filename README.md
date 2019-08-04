@@ -5,8 +5,9 @@
     1. [Configuration](#configuration)
 1. [How To Use](#how-to-use)
 1. [How It Works](#how-it-works)
-    1. [Database](#database)
-    1. [Server](#server)
+    1. [Models](#models)
+    1. [Views](#views)
+    1. [Controller](#server)
 1. [About Us](#about-us)
 
 Our second coding boot camp project: Nesterly will allow the user to develop a cataloged inventory of their home goods. The user will be able to organize their major possessions by category and location. Both are customizable, if you are a musician in a one-bedroom apartment, or an art collector in a mansion, if you have stuff to keep track of, Nesterly can keep track of it.
@@ -30,7 +31,7 @@ The Nesterly code is available from [github](https://github.com/kiselblat/Projec
 1. [ExpressJS](#expressjs)
 1. [Nodemailer](#nodemailer)
 1. [json2csv](#json2csv)
-1. [fuse.js] (#fusejs)
+1. [fuse.js](#fusejs)
 
 #### NodeJS
 
@@ -58,8 +59,9 @@ In order to get your Gmail to send emails from Nodemon you may have to [allow ac
 
 [json2csv](https://www.npmjs.com/package/json2csv) is a package that converts a JSON object into a string that can be written to a csv file. In this case, the string is passed directly into an email object that Nodemailer then simply packages up in a csv file as an attachment.
 
-#### fuse
-[fusejs](https://www.npmjs.com/package/fuse.js) is an Apache License open source project. Maintaining and updating it takes up a good chunk of time, and there's still plenty of work to do. To be able to provide the project with the attention it deserves, I decided to experiment with sponsorship and/or support. If this works out, I can route the chunk of time that is usually spent on lucrative endeavors to this project.
+#### fusejs
+
+[fusejs](https://www.npmjs.com/package/fuse.js) is a package that serves to implement our search capability. It is implemented by creating a `Fuse` object and then calling a built-in `Model.search( `*`array_of_items`*` , `*`options_object`*`)` function.
 
 ### mySQL
 
@@ -113,7 +115,7 @@ node server.js
 
 The app will interface with the database and create the necessary tables and assign them the necessary relations. It will then report the port the server is listening on to the terminal. The default is 8080.
 
-Then open `localhost:PORT` in your browser and begin using Nesterly!
+Then open `localhost:`*`PORT`*` ` in your browser and begin using Nesterly!
 
 Nesterly is also deployed at <https://project-too.herokuapp.com/>
 
@@ -121,7 +123,7 @@ The user will land on home page that will give him/her the option to enter a new
 
 ## How It Works
 
-  1. [Models](#model)
+  1. [Models](#models)
       1. [Database](#database)
       1. [Sequelize](#sequelize)
   1. [Views](#views)
@@ -137,31 +139,120 @@ Nesterly is organized into different files around a MVC paradigm. The applicatio
 
 1. [Database](#database)
 1. [Sequelize](#sequelize)
+    1. [Inventory](#inventory)
+    1. [Categories](#categories)
+    1. [Locations](#locations)
 
-There is one main database and 2 relational databases. The relational will be for categories of items, e.g. appliances or electronics, and locations for items, e.g. living room or kitchen.
+#### Database
+
+The database is not technically a part of the model, it is in fact another server that, in practice, will often be on another computer. We're talking about it here because the models are a reflection of the structure of the database and because we've catagoized the Object Relational Mapper, `Sequelize`, here as well.
+
+
+The database itself contains one table of items and two related tables of categories of items (like appliances or electronics) and locations for items (such as living room, kitchen, or Room 305).
+
+
+We used a [mySQL](#mysql) database on `localhost` for development, and our [deployed app](https://project-too.herokuapp.com/) uses the [JawsDB](https://elements.heroku.com/addons/jawsdb) Heroku add-on to implement our database.
+
+#### Sequelize
+
+1. [Inventory](#inventory)
+1. [Categories](#categories)
+1. [Locations](#locations)
+
+[Sequelize](https://www.npmjs.com/package/sequelize) serves as the Object Relational Mapper of our application. It is a NodeJS module interacts with our database for the code. As such, it contains many useful functions with which we can implement database queries with JavaScript.
+
+Sequelize is used by creating a series of **models** that reflect the tables in our database and the kind of information they contain, as well as the relationships between those two tables. Sequelize automatically creates a primary key, as well as some timestamp fields for creation and updating. Foreign keys are assigned functionally as well.
+
+##### Inventory
+
+This table contains information about each item in our home inventory.
+
+- item
+: This is the name of a thing in your possesion. What you call the item you're recording.
+
+- description
+: This is a long-text entry for adding a lot of info about your item if the user sees fit.
+
+- cost
+: This is a floating point number that represents the value of the item.
+
+- serialNum
+: This optional string field is for an identifying number that may be attached to the item.
+
+- warrantyExp
+: A date object, that we've labeled for a warrany expiration date.
+
+##### Categories
+
+- categoryName
+: This string represents the name of the category.
+
+##### Locations
+
+- locationName
+: This string represents the name of the location.
 
 ### Views
 
 1. [Handlebars](#handlebars)
+    1. [index](#index)
+    1. [categories](#categories)
+    1. [locations](#locations)
+    1. [mailer](#mailer)
 1. [Bootstrap Modals](#bootstrap-modals)
 
-Category and location are selectable via dropdown.
+The view is the part of the application that the user sees and interacts with. It creates the user experience with both aesthetics and the manner it presents and requests information.
 
-Entering new items and editing existing items will be done by modals.
+Our view is executed with Handlebars, a templating system compatible with our NodeJS server. Each view is paired with a JavaScript file in the `/public/js` directory.
+
+#### Handlebars
+
+1. [index](#index)
+1. [categories](#categories)
+1. [locations](#locations)
+1. [mailer](#mailer)
+
+[Handlebars](https://handlebarsjs.com/) is a templating system that allows our site to be broken up into views, each of which are rendered as the body of our `main.handlebars` template.
+
+We include Handlebars through the node module 'express-handlebars' and by invoking the `.engine` method built into the express object `app`.
+
+##### index
+
+This is the primary view. It presents the user with  a search box for finding items in large databases, links to the category and location managers, a list of all the currently stored items, and a form for adding a new item, presented in a [modal](#bootstrap-modals).
+
+##### categories
+
+This view gives the user an entry form for adding new categories, and a list of all the current categories.
+
+##### locations
+
+Like categories, this view allows the addition of new locations and a list of current locations.
+
+##### mailer
+
+This view allows the user to enter an email address and have a report containing a comma seperated variable file of the items table. There is also a space for an additional message.
+
+#### Bootstrap Modals
+
+Our CSS framework is [Bootstrap](https://getbootstrap.com/). It allows easy, fast styling as well as mobile responsive positions of page elements.
+
+It also give us the ability to hide our New Item dialogue in a modal until it's needed, allowing the user to browse the list of all items without having to scroll as far.
 
 ### Controller
 
-1. [HTML Routes](#handlebars)
-1. [API Routes](#bootstrap-modals)
+1. [HTML Routes](#html-routes)
+1. [API Routes](#api-routes)
 
 ## About Us
 
-Tom Christ
+Nesterly is our second group project for the Unniversity of Minnesota Coding Boot Camp, Cohort 13.
 
-Eric Bergan
+[Eric Bergan](https://github.com/einstein1967)
 
-Honghao Zheng
+[Tom Christ](https://github.com/kiselblat)
 
-Roisin Owens
+[Shaquima McSwain](https://github.com/qmiko)
 
-Shaquima McSwain
+[Roisin Owens](https://github.com/dudeitsrowsheen)
+
+[Honghao Zheng](https://github.com/hzheng8)
