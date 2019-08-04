@@ -5,8 +5,9 @@
     1. [Configuration](#configuration)
 1. [How To Use](#how-to-use)
 1. [How It Works](#how-it-works)
-    1. [Database](#database)
-    1. [Server](#server)
+    1. [Models](#models)
+    1. [Views](#views)
+    1. [Controller](#server)
 1. [About Us](#about-us)
 
 Our second coding boot camp project: Nesterly will allow the user to develop a cataloged inventory of their home goods. The user will be able to organize their major possessions by category and location. Both are customizable, if you are a musician in a one-bedroom apartment, or an art collector in a mansion, if you have stuff to keep track of, Nesterly can keep track of it.
@@ -122,7 +123,7 @@ The user will land on home page that will give him/her the option to enter a new
 
 ## How It Works
 
-  1. [Models](#model)
+  1. [Models](#models)
       1. [Database](#database)
       1. [Sequelize](#sequelize)
   1. [Views](#views)
@@ -194,11 +195,48 @@ This table contains information about each item in our home inventory.
 ### Views
 
 1. [Handlebars](#handlebars)
+    1. [index](#index)
+    1. [categories](#categories)
+    1. [locations](#locations)
+    1. [mailer](#mailer)
 1. [Bootstrap Modals](#bootstrap-modals)
 
-Category and location are selectable via dropdown.
+The view is the part of the application that the user sees and interacts with. It creates the user experience with both aesthetics and the manner it presents and requests information.
 
-Entering new items and editing existing items will be done by modals.
+Our view is executed with Handlebars, a templating system compatible with our NodeJS server. Each view is paired with a JavaScript file in the `/public/js` directory.
+
+#### Handlebars
+
+1. [index](#index)
+1. [categories](#categories)
+1. [locations](#locations)
+1. [mailer](#mailer)
+
+[Handlebars](https://handlebarsjs.com/) is a templating system that allows our site to be broken up into views, each of which are rendered as the body of our `main.handlebars` template.
+
+We include Handlebars through the node module 'express-handlebars' and by invoking the `.engine` method built into the express object `app`.
+
+##### index
+
+This is the primary view. It presents the user with  a search box for finding items in large databases, links to the category and location managers, a list of all the currently stored items, and a form for adding a new item, presented in a [modal](#bootstrap-modals).
+
+##### categories
+
+This view gives the user an entry form for adding new categories, and a list of all the current categories.
+
+##### locations
+
+Like categories, this view allows the addition of new locations and a list of current locations.
+
+##### mailer
+
+This view allows the user to enter an email address and have a report containing a comma seperated variable file of the items table. There is also a space for an additional message.
+
+#### Bootstrap Modals
+
+Our CSS framework is [Bootstrap](https://getbootstrap.com/). It allows easy, fast styling as well as mobile responsive positions of page elements.
+
+It also give us the ability to hide our New Item dialogue in a modal until it's needed, allowing the user to browse the list of all items without having to scroll as far.
 
 ### Controller
 
